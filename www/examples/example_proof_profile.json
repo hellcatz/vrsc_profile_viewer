@@ -1,0 +1,63 @@
+{
+    "iEXZ3nd4K9fmGDSiQ8J6XLATzUUSKp1eAz" : {
+      "qualifiedname":"vrsc::system.identity.profile.public",
+      "_iSUbRLixeCc4WFcE8cFpbyiDCYQB2WoekM": {
+        "qualifiedname":"vrsc::system.identity.profile.settings",
+        "fontcolor": "#BCEFEE",
+        "backgroundcolor": "#272835"
+      },
+      "iMMRVtGBNkr7V2hUNd4LLFiPQyzGrxAhx1": {
+        "qualifiedname":"vrsc::system.identity.profile.avatar",
+        "image": "https://siasky.net/bACXYLsB-tzo_V5FvUJ4j855VDROIbJQUT7z9Bb3oXVRHg",
+        "cropx": "",
+        "cropy": "",
+        "cropx1": "",
+        "cropy1": ""
+      },
+      "iP9hXXzqYXQhnY9EXikYjqraGBCrvaysAe": {
+        "qualifiedname":"vrsc::system.identity.profile.header",
+        "image": "https://siasky.net/7AB4d-TfEUcGODqNzrKs4icGMFbBml6wdhnolqYjczubeA",
+        "cropx": "",
+        "cropy": "",
+        "cropx1": "",
+        "cropy1": ""
+      },
+      "i7FchM7um32xFYs1jMLHk3SaYYjCSiE9bD": {
+        "qualifiedname":"vrsc::system.services.accounts.twitter",
+        "accountname":"10.000X",
+        "accountid":"@10kXgains",
+        "i9TbCypmPKRpKPZDjk3YcCEZXK6wmPTXjw":"https://twitter.com/10kXgains/status/1442961721115783168"
+      },
+      "i8SMZJEZv2VabwL8vGi282iUKM1cY3F4xa": {
+          "qualifiedname":"vrsc::system.services.accounts.reddit",
+          "accountid": "u/Frequent_Positive_84",
+          "i9TbCypmPKRpKPZDjk3YcCEZXK6wmPTXjw":"https://www.reddit.com/user/Frequent_Positive_84/comments/pyp5s7/i9tbcypmpkrpkpzdjk3yccezxk6wmptxjw/"
+      },
+      "i3X9irKQDqHNtYxfwEzECPHRV1RzzGnkHf": {
+        "qualifiedname":"vrsc::system.services.website",
+        "name": "greenverus",
+        "i9TbCypmPKRpKPZDjk3YcCEZXK6wmPTXjw":"https://greenverus.com"
+      },
+      "iD55EMBMDaeoBCBp8HqNebxK92aABKicT8": {
+        "qualifiedname":"vrsc::system.keys.vrsc.address",
+        "address":"RQiMXAAAAAAAAAAAAAAAAsJjwtPbKGNhn",
+        "i9TbCypmPKRpKPZDjk3YcCEZXK6wmPTXjw":"i9TbCypmPKRpKPZDjk3YcCEZXK6wmPTXjw 1: controller of VerusID \"testID@\" controls ..."
+      },
+      "i642EeDhKVHgHU6mpPFUUgzHfeZKUEQEAd": {
+        "qualifiedname":"vrsc::system.keys.eth.address",
+        "address":"0xAD84C9EE28FB4c3b9C6ef1B86D1ED00A82DB84E9",
+        "i9TbCypmPKRpKPZDjk3YcCEZXK6wmPTXjw":"i9TbCypmPKRpKPZDjk3YcCEZXK6wmPTXjw 1: controller of VerusID \"testID@\" controls ..."
+      },
+      "iNw7KJ9NvuV6zM99i7F7sb21hPpw8wRUKX": {
+        "qualifiedname":"vrsc::system.keys.btc.address",
+        "address":"bc1qwcx5j4s3rn04d6f25mwt3wrkp9tj2nuv8du3c4",
+        "i9TbCypmPKRpKPZDjk3YcCEZXK6wmPTXjw":"i9TbCypmPKRpKPZDjk3YcCEZXK6wmPTXjw 1: controller of VerusID \"testID@\" controls bc1qwcx5j4s3rn04d6f25mwt3wrkp9tj2nuv8du3c4:AUICGgABQR9uB4x5R7pqTZx2i4OO19BQxpyZ2Vua8A8nyjMWjJj1HyDPDwlzGU3X7s5iMYh8f8HRCbdl8phDpZ9BvTdloQ7M:H2RHTc4lPzGKnKSjhBf6yiiSmaTLaLKA0iX9Hlbhz3SZRRkSyrsvQ4c0o7iBU3k+K0QdoGPDaK9XvveFgGsbNx0="
+      },
+      "iSYgqLigKLF62dLypvQV4pCCanJyqyRQ2F": {
+        "qualifiedname":"vrsc::system.collections.content",
+        "content": [            
+            {"vdxfkey": "iRYGy6HyYW1qoZk9hAkFwDs7RygBRUsswW", "qualifiedname":"vrsc::system.collections.content.web.url", "name": "VerusCoin Website", "url": "https://verus.io/", "desc": "Short description of website."}
+        ]
+      }
+    }
+}

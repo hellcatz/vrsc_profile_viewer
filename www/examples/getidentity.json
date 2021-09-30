@@ -1,0 +1,26 @@
+{
+  "identity": {
+    "version": 1,
+    "flags": 0,
+    "primaryaddresses": [
+      "RQKHqP9LvDjTMuzWssyJFVqJh36EneY9L2"
+    ],
+    "minimumsignatures": 1,
+    "name": "vidptest",
+    "identityaddress": "iQf7qTguJBaVoDDuCN6hQfRaqMNXVWvznZ",
+    "parent": "i5w5MuNik5NtLcYmNzcvaoixooEebB6MGV",
+    "systemid": "i5w5MuNik5NtLcYmNzcvaoixooEebB6MGV",    
+    "contentmap":{
+        "e0d65ebc27911679ed5f4a6828c0f8d294795707": "63326876636e5231636d7775595851766148684653466f"
+    },
+    "revocationauthority": "iQf7qTguJBaVoDDuCN6hQfRaqMNXVWvznZ",
+    "recoveryauthority": "iQf7qTguJBaVoDDuCN6hQfRaqMNXVWvznZ",
+    "timelock": 0
+  },
+  "status": "active",
+  "canspendfor": true,
+  "cansignfor": true,
+  "blockheight": 1711604,
+  "txid": "b8e7fa311e28fbecc234bc0cd8299b9bb5b7f62e56ec272b56dd30dbd18f178f",
+  "vout": 1
+}

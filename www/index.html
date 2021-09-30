@@ -1,0 +1,102 @@
+<!DOCTYPE html><html lang="en">
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.1/css/bootstrap.min.css" integrity="sha512-6KY5s6UI5J7SVYuZB4S/CZMyPylqyyNZco376NM2Z8Sb8OxEdp02e1jkKk/wZxIEmjQ6DRCEBhni+gpr9c4tvA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.1/js/bootstrap.min.js" integrity="sha512-ewfXo9Gq53e1q1+WDTjaHAGZ8UvCWq0eXONhwDuIoaH8xz2r96uoAYaQCm1oQhnBfRXrvJztNXFsTloJfgbL5Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <style>
+     html, body {
+        font-family: Arial, Helvetica, sans-serif;
+        padding: 0.5rem;
+     }
+     .card {
+        -webkit-border-radius: 12px;
+        -moz-border-radius: 12px;
+        border-radius: 12px;
+     }
+     .vrsc-system-identity-profile-settings {
+        -webkit-border-radius: 12px;
+        -moz-border-radius: 12px;
+        border-radius: 12px;
+     }
+     .card-body {
+        margin: 0 0 0 0;
+        width: 100%;
+     }
+     .vrsc-container {
+        width: 50%;
+        min-width: 36rem;
+        margin:0 auto;
+     }
+     .vrsc-system-identity-profile-title {
+        position: absolute;
+        top: 0.2rem;
+        left: 0.4rem;
+     }
+     .vrsc-system-identity-profile-avatar {
+        float: right;
+        top: 0.2rem;
+        right: 0.4rem;
+     }
+     .vrsc-system-identity-profile-avatar img {
+        margin: 0 0 0 0;
+        padding: 0 0 0 0;
+        width: 3rem;
+        border-radius: 50%;
+     }
+     .vrsc-system-identity-profile-header {
+        min-height: 3rem;
+     }
+     .vrsc-system-identity-profile-header img {
+        -webkit-border-radius: 6px 6px 0 0;
+        -moz-border-radius: 6px 6px 0 0;
+        border-radius: 6px 6px 0 0;
+        object-fit: cover;
+        max-height: 6rem;
+     }
+     .vrsc-system-collections-content img {
+        object-fit: contain;
+        max-height: 18rem;
+     }
+    </style>
+    <style id="linkstyle"></style>
+</head>
+<body>
+<div class="vrsc-container">
+<div class="card border border-5">
+    <div class="card-header border-bottom border-3 p-2 pl-1 m-0">
+        <h3>VerusID Proofs Viewer</h3>
+    </div>
+    <div class="card-body">
+        <p>This is a very experimental VerusID Proofs Viewer.</p>
+        <form id="lookupform">
+           Search
+           <input type="search" name="verusid" placeholder="VerusID@">
+           <button type="submit">View Proofs</button>
+        </form>
+        <hr />
+        <p> Currently, there are only two VerusID's proof profiles working(-in-progress).
+        <ul>
+            <li><a href="identity/testid@">testid@</a> (Loads proof profile json from arweave, based on identity content map containing "vrsc::system.collections.arweave".hash160result)</li>
+            <li><a href="identity/vidptest@">vidptest@</a> (Loads proof profile from example on this server, until identity content map is updated)</li>
+        </ul>
+        </p>
+    </div>
+</div>
+</div>
+<script>
+    $('#lookupform').submit(function(e) {
+        e.preventDefault();
+        let data = $("#lookupform :input").serializeArray();
+        for (let a of data) {
+            if (a.name="verusid" && a.value && a.value.length>0) {
+                if (!a.value.endsWith("@")) { a.value+="@"; }
+                window.location.href = "identity/"+a.value;
+            }
+        }
+    });
+</script>
+</body>
+</html>

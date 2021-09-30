@@ -1,0 +1,107 @@
+<!DOCTYPE html><html lang="en">
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.1/css/bootstrap.min.css" integrity="sha512-6KY5s6UI5J7SVYuZB4S/CZMyPylqyyNZco376NM2Z8Sb8OxEdp02e1jkKk/wZxIEmjQ6DRCEBhni+gpr9c4tvA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/core.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/md5.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.1/js/bootstrap.min.js" integrity="sha512-ewfXo9Gq53e1q1+WDTjaHAGZ8UvCWq0eXONhwDuIoaH8xz2r96uoAYaQCm1oQhnBfRXrvJztNXFsTloJfgbL5Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/1.9.1/showdown.min.js" integrity="sha512-L03kznCrNOfVxOUovR6ESfCz9Gfny7gihUX/huVbQB9zjODtYpxaVtIaAkpetoiyV2eqWbvxMH9fiSv5enX7bw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script src="../js/arweave.bundle.min.js"></script>
+    
+    <script src="../verusprofile.js"></script>
+    <style>
+     html, body {
+        font-family: Arial, Helvetica, sans-serif;
+        padding: 0.5rem;
+     }
+     .card {
+        -webkit-border-radius: 12px;
+        -moz-border-radius: 12px;
+        border-radius: 12px;
+     }
+     .vrsc-system-identity-profile-settings {
+        -webkit-border-radius: 12px;
+        -moz-border-radius: 12px;
+        border-radius: 12px;
+     }
+     .card-body {
+        margin: 0 0 0 0;
+        width: 100%;
+     }
+     .vrsc-container {
+        width: 50%;
+        min-width: 36rem;
+        margin:0 auto;
+     }
+     .vrsc-system-identity-profile-title {
+        position: absolute;
+        top: 0.2rem;
+        left: 0.4rem;
+     }
+     .vrsc-system-identity-profile-avatar {
+        float: right;
+        top: 0.2rem;
+        right: 0.4rem;
+     }
+     .vrsc-system-identity-profile-avatar img {
+        margin: 0 0 0 0;
+        padding: 0 0 0 0;
+        width: 3rem;
+        border-radius: 50%;
+     }
+     .vrsc-system-identity-profile-header {
+        min-height: 3rem;
+     }
+     .vrsc-system-identity-profile-header img {
+        -webkit-border-radius: 6px 6px 0 0;
+        -moz-border-radius: 6px 6px 0 0;
+        border-radius: 6px 6px 0 0;
+        object-fit: cover;
+        width: 100%;
+        max-height: 8rem;
+     }
+     .vrsc-system-collections-content img {
+        object-fit: contain;
+        max-height: 18rem;
+     }
+    </style>
+    <style id="linkstyle"></style>
+</head>
+<body>
+<div class="vrsc-container">
+    <!--- Profile Card -->
+    <div class="card border border-5 vrsc-system-identity-profile-settings">
+        <div class="vrsc-system-identity-profile-background">
+            <div class="card-header border-bottom border-3 p-0 m-0">
+                <!--- Header -->
+                <div class="p-0 m-0 vrsc-system-identity-profile-title"></div>
+                <div class="p-0 m-0 vrsc-system-identity-profile-header"></div>
+            </div>
+            <div class="card-body">
+                <!--- Body -->
+                <div class="vrsc-system-identity-profile-avatar"></div>
+                <div class="vrsc-system-identity-profile-image"></div>
+                <div class="vrsc-system-identity-profile-about"></div>
+
+                <div class="vrsc-system-services-website"></div>
+                <div class="vrsc-system-services-accounts-discord"></div>
+                <div class="vrsc-system-services-accounts-reddit"></div>
+                <div class="vrsc-system-services-accounts-twitter"></div>
+
+                <div class="vrsc-system-keys-vrsc-address"></div>
+                <div class="vrsc-system-keys-eth-address"></div>
+                <div class="vrsc-system-keys-btc-address"></div>
+              
+                <!--- Render Content Collection -->
+                <div class="vrsc-system-collections-content"></div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

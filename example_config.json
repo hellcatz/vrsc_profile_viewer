@@ -1,0 +1,11 @@
+{
+    "listenPort":7777,
+    "daemons": [
+        {
+            "host": "localhost",
+            "port": 7771,
+            "user": "rpc_user",
+            "password": "prc_pass"
+        }
+    ]
+}

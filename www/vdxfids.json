@@ -1,0 +1,226 @@
+{
+    "vrsc::system.collections.arweave": {
+      "vdxfid": "iCS9VrxGjNsHUhrVqkV17Ws66cmg5rZecV",
+      "hash160result": "cf19fddae8aa266c8d0d4807196681666cfd4562",
+      "qualifiedname": {
+        "namespace": "i5w5MuNik5NtLcYmNzcvaoixooEebB6MGV",
+        "name": "vrsc::system.collections.arweave"
+      }
+    },
+    "vrsc::system.collections.content": {
+      "vdxfid": "iSYgqLigKLF62dLypvQV4pCCanJyqyRQ2F",
+      "hash160result": "8bb751d39d2df2261d9502cff3315fad8e6714fd",
+      "qualifiedname": {
+        "namespace": "i5w5MuNik5NtLcYmNzcvaoixooEebB6MGV",
+        "name": "vrsc::system.collections.content"
+      }
+    },
+    "vrsc::system.collections.web": {
+      "vdxfid": "i49LxHRkUqiJjbL5hTrUUzo4PWUGVfm421",
+      "hash160result": "e0d65ebc27911679ed5f4a6828c0f8d294795707",
+      "qualifiedname": {
+        "namespace": "i5w5MuNik5NtLcYmNzcvaoixooEebB6MGV",
+        "name": "vrsc::system.collections.web"
+      }
+    },
+    "vrsc::system.collections.content.reference.arweave": {
+      "vdxfid": "i9bSLhF1dUkq3ovUHfQ42mFnJdXkbQLQ7u",
+      "hash160result": "7eb933893b7252b308f1bb89eba3f482496a1f43",
+      "qualifiedname": {
+        "namespace": "i5w5MuNik5NtLcYmNzcvaoixooEebB6MGV",
+        "name": "vrsc::system.collections.content.reference.arweave"
+      }
+    },
+    "vrsc::system.collections.content.reference.web": {
+      "vdxfid": "iHGd3jGgpTef5huLsZ4LThRAK2CkDzBBw1",
+      "hash160result": "ca5442faaf8430eeb83b61052f34b26bd3745197",
+      "qualifiedname": {
+        "namespace": "i5w5MuNik5NtLcYmNzcvaoixooEebB6MGV",
+        "name": "vrsc::system.collections.content.reference.web"
+      }
+    },
+    "vrsc::system.collections.content.arweave.post": {
+      "vdxfid": "iS33Fgd1Y7H6vVoNMWJxM9gCi6drsSRQVp",
+      "hash160result": "679a790f1419b3dea0cf306c797022649ff878f7",
+      "qualifiedname": {
+        "namespace": "i5w5MuNik5NtLcYmNzcvaoixooEebB6MGV",
+        "name": "vrsc::system.collections.content.arweave.post"
+      }
+    },
+    "vrsc::system.collections.content.arweave.image": {
+      "vdxfid": "iApfYRGU8SkcVK3sDAJfATQ64smkmKCscW",
+      "hash160result": "c5227e25d70197ed2442207ca97960eb14f89750",
+      "qualifiedname": {
+        "namespace": "i5w5MuNik5NtLcYmNzcvaoixooEebB6MGV",
+        "name": "vrsc::system.collections.content.arweave.image"
+      }
+    },
+    "vrsc::system.collections.content.web.post": {
+      "vdxfid": "iKKAb5o9UkzYLbnis1BmDHz2JcfzL2hrNe",
+      "hash160result": "748792fe9616dc2560ccb5f908de5f4d5cdebcad",
+      "qualifiedname": {
+        "namespace": "i5w5MuNik5NtLcYmNzcvaoixooEebB6MGV",
+        "name": "vrsc::system.collections.content.web.post"
+      }
+    },
+    "vrsc::system.collections.content.web.image": {
+      "vdxfid": "iSZHGtE7z8xHhWHaxxphkzsSXkrTZCr5AP",
+      "hash160result": "a8b43ce74a267dde4fa830698268cb43672731fd",
+      "qualifiedname": {
+        "namespace": "i5w5MuNik5NtLcYmNzcvaoixooEebB6MGV",
+        "name": "vrsc::system.collections.content.web.image"
+      }
+    },
+    "vrsc::system.collections.content.web.text": {
+      "vdxfid": "iSbxi18bWUYMnMmFKpgZAZgu62uv7WEC4e",
+      "hash160result": "1e823fe4976c5194d7b3f188b6d4d62e26e7b2fd",
+      "qualifiedname": {
+        "namespace": "i5w5MuNik5NtLcYmNzcvaoixooEebB6MGV",
+        "name": "vrsc::system.collections.content.web.text"
+      }
+    },
+    "vrsc::system.collections.content.web.pre": {
+      "vdxfid": "i7yXtWCauSpcxwpwavyMseQxTRh2WNfNtT",
+      "hash160result": "5649834be747fe60f4f6f3c7bfe59a1646f25c31",
+      "qualifiedname": {
+        "namespace": "i5w5MuNik5NtLcYmNzcvaoixooEebB6MGV",
+        "name": "vrsc::system.collections.content.web.pre"
+      }
+    },
+    "vrsc::system.collections.content.web.url": {
+      "vdxfid": "iRYGy6HyYW1qoZk9hAkFwDs7RygBRUsswW",
+      "hash160result": "342df5c6bf429d9d4682c6388c9c54b7295b08f2",
+      "qualifiedname": {
+        "namespace": "i5w5MuNik5NtLcYmNzcvaoixooEebB6MGV",
+        "name": "vrsc::system.collections.content.web.url"
+      }
+    },
+    "vrsc::system.collections.content.web.rss": {
+      "vdxfid": "iRBfVbqteKxqcZrcVDr6B6FCHiDHMMuazT",
+      "hash160result": "4f9212acd46369ad2af1b72389230449b86c22ee",
+      "qualifiedname": {
+        "namespace": "i5w5MuNik5NtLcYmNzcvaoixooEebB6MGV",
+        "name": "vrsc::system.collections.content.web.rss"
+      }
+    },
+    "vrsc::system.identity.profile.public": {
+      "vdxfid": "iEXZ3nd4K9fmGDSiQ8J6XLATzUUSKp1eAz",
+      "hash160result": "a2ef87a471b4e479f33a3e7dca0fd51bf0fa3b79",
+      "qualifiedname": {
+        "namespace": "i5w5MuNik5NtLcYmNzcvaoixooEebB6MGV",
+        "name": "vrsc::system.identity.profile.public"
+      }
+    },
+    "vrsc::system.identity.profile.settings": {
+      "vdxfid": "iSUbRLixeCc4WFcE8cFpbyiDCYQB2WoekM",
+      "hash160result": "e0cb062ab5bddf2b6ceab15148422b20b2384efc",
+      "qualifiedname": {
+        "namespace": "i5w5MuNik5NtLcYmNzcvaoixooEebB6MGV",
+        "name": "vrsc::system.identity.profile.settings"
+      }
+    },
+    "vrsc::system.identity.profile.about": {
+      "vdxfid": "iAvXhoTu7EtDcGiUsyd1BysHMo1bTNDrTd",
+      "hash160result": "2d2702acc84234889dd428537d7db81dfcebb351",
+      "qualifiedname": {
+        "namespace": "i5w5MuNik5NtLcYmNzcvaoixooEebB6MGV",
+        "name": "vrsc::system.identity.profile.about"
+      }
+    },
+    "vrsc::system.identity.profile.avatar": {
+      "vdxfid": "iMMRVtGBNkr7V2hUNd4LLFiPQyzGrxAhx1",
+      "hash160result": "abfd564535a395d94002eb621080bec70c661ac4",
+      "qualifiedname": {
+        "namespace": "i5w5MuNik5NtLcYmNzcvaoixooEebB6MGV",
+        "name": "vrsc::system.identity.profile.avatar"
+      }
+    },
+    "vrsc::system.identity.profile.background": {
+      "vdxfid": "iC2d3S3Gw474vEFwRPY5dtj8HhghcsRAES",
+      "hash160result": "57528cdcbb781935a5c87154a37d06c4ebffd25d",
+      "qualifiedname": {
+        "namespace": "i5w5MuNik5NtLcYmNzcvaoixooEebB6MGV",
+        "name": "vrsc::system.identity.profile.background"
+      }
+    },
+    "vrsc::system.identity.profile.header": {
+      "vdxfid": "iP9hXXzqYXQhnY9EXikYjqraGBCrvaysAe",
+      "hash160result": "dc1e79331a917c0aee6ea7d4550412e7dd09d3d7",
+      "qualifiedname": {
+        "namespace": "i5w5MuNik5NtLcYmNzcvaoixooEebB6MGV",
+        "name": "vrsc::system.identity.profile.header"
+      }
+    },
+    "vrsc::system.identity.profile.image": {
+      "vdxfid": "i8xHQFLZyqpo6z6u7mXt3ER2fbgr7z853j",
+      "hash160result": "af1613b0341e699e3174796eff58c3621b90183c",
+      "qualifiedname": {
+        "namespace": "i5w5MuNik5NtLcYmNzcvaoixooEebB6MGV",
+        "name": "vrsc::system.identity.profile.image"
+      }
+    },
+    "vrsc::system.keys.vrsc.address": {
+      "vdxfid": "iD55EMBMDaeoBCBp8HqNebxK92aABKicT8",
+      "hash160result": "6aaee08976c5ce8e3060f9ebb6b3dc9376d14169",
+      "qualifiedname": {
+        "namespace": "i5w5MuNik5NtLcYmNzcvaoixooEebB6MGV",
+        "name": "vrsc::system.keys.vrsc.address"
+      }
+    },
+    "vrsc::system.keys.eth.address": {
+      "vdxfid": "i642EeDhKVHgHU6mpPFUUgzHfeZKUEQEAd",
+      "hash160result": "210b775e951fd28936f19f0c0bc04e928f05461c",
+      "qualifiedname": {
+        "namespace": "i5w5MuNik5NtLcYmNzcvaoixooEebB6MGV",
+        "name": "vrsc::system.keys.eth.address"
+      }
+    },
+    "vrsc::system.keys.btc.address": {
+      "vdxfid": "iNw7KJ9NvuV6zM99i7F7sb21hPpw8wRUKX",
+      "hash160result": "897d848a1756781074db955cbb5c2c9c347d71d5",
+      "qualifiedname": {
+        "namespace": "i5w5MuNik5NtLcYmNzcvaoixooEebB6MGV",
+        "name": "vrsc::system.keys.btc.address"
+      }
+    },
+    "vrsc::system.proofs.controller": {
+      "vdxfid": "i9TbCypmPKRpKPZDjk3YcCEZXK6wmPTXjw",
+      "hash160result": "aa3bd2020b6347500c1831665345a2ed417da341",
+      "qualifiedname": {
+        "namespace": "i5w5MuNik5NtLcYmNzcvaoixooEebB6MGV",
+        "name": "vrsc::system.proofs.controller"
+      }
+    },
+    "vrsc::system.services.accounts.discord": {
+      "vdxfid": "i7aKFqemraKTTjmnuxMTAL6LNnYSUKq9J4",
+      "hash160result": "c1d7f27cdd8f88504017155424345217a0d5f82c",
+      "qualifiedname": {
+        "namespace": "i5w5MuNik5NtLcYmNzcvaoixooEebB6MGV",
+        "name": "vrsc::system.services.accounts.discord"
+      }
+    },
+    "vrsc::system.services.accounts.reddit": {
+      "vdxfid": "i8SMZJEZv2VabwL8vGi282iUKM1cY3F4xa",
+      "hash160result": "820b4974150fb26b9003e9efd266e218a88d6f36",
+      "qualifiedname": {
+        "namespace": "i5w5MuNik5NtLcYmNzcvaoixooEebB6MGV",
+        "name": "vrsc::system.services.accounts.reddit"
+      }
+    },
+    "vrsc::system.services.accounts.twitter": {
+      "vdxfid": "i7FchM7um32xFYs1jMLHk3SaYYjCSiE9bD",
+      "hash160result": "a55fd61f188a6f2a773bf03ebef621ae3c7d6f29",
+      "qualifiedname": {
+        "namespace": "i5w5MuNik5NtLcYmNzcvaoixooEebB6MGV",
+        "name": "vrsc::system.services.accounts.twitter"
+      }
+    },
+    "vrsc::system.services.website": {
+      "vdxfid": "i3X9irKQDqHNtYxfwEzECPHRV1RzzGnkHf",
+      "hash160result": "506d9e11335f3ae90e0b37eacfc505fae71f7f00",
+      "qualifiedname": {
+        "namespace": "i5w5MuNik5NtLcYmNzcvaoixooEebB6MGV",
+        "name": "vrsc::system.services.website"
+      }
+    }
+}
