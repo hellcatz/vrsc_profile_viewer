@@ -23,7 +23,7 @@ ArWeave is being used as a decentralized perma web source for proof profiles.
     
 ### Update VerusID Content Map
 
-    ./verus updateidentity '{"name":"vidptest","contentmap":[{"cf19fddae8aa266c8d0d4807196681666cfd4562":"68d838cf61b0958a086cd4a46e1e462371801212cee1f687ee687c701b09609a"}]}'
+    ./verus updateidentity '{"name":"vidptest","contentmap":{"cf19fddae8aa266c8d0d4807196681666cfd4562":"68d838cf61b0958a086cd4a46e1e462371801212cee1f687ee687c701b09609a"}}'
 
 ### Upload proofs_profile.json to ArWeave
 When uploading to Arweave, you must tag the file with a special vdxfkey tag.
