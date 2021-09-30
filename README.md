@@ -1,5 +1,5 @@
 # vrsc_proofs_viewer
-A very experimental proofs viewer for Verus IDs
+A very experimental VerusID proofs viewer
 
     git clone https://github.com/hellcatz/vrsc_proofs_viewer
     cd vrsc_proofs_viewer
