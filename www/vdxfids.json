@@ -167,6 +167,14 @@
         "name": "vrsc::system.keys.vrsc.address"
       }
     },
+    "vrsc::system.keys.vrsc.identity": {
+      "vdxfid": "iRjhBnikFiZummQRxbtP3FexLemVoxzgWa",
+      "hash160result": "9c300dcfc398a322921ac9fa7d15b3b80b2631f4",
+      "qualifiedname": {
+        "namespace": "i5w5MuNik5NtLcYmNzcvaoixooEebB6MGV",
+        "name": "vrsc::system.keys.vrsc.identity"
+      }
+    },
     "vrsc::system.keys.eth.address": {
       "vdxfid": "i642EeDhKVHgHU6mpPFUUgzHfeZKUEQEAd",
       "hash160result": "210b775e951fd28936f19f0c0bc04e928f05461c",
@@ -191,12 +199,60 @@
         "name": "vrsc::system.proofs.controller"
       }
     },
+    "vrsc::system.proofs.controller.discord": {
+      "vdxfid": "i6mezdUSNyPq6fsze4cN6U4SAtsHHu1Tn7",
+      "hash160result": "5bc38e3dc0a8d3681c4a685ea8f6658ab1c22524",
+      "qualifiedname": {
+        "namespace": "i5w5MuNik5NtLcYmNzcvaoixooEebB6MGV",
+        "name": "vrsc::system.proofs.controller.discord"
+      }
+    },
+    "vrsc::system.proofs.controller.facebook": {
+      "vdxfid": "iHm7TCzTyRFkRrNGTcGhJsLsVwmi4P7SCr",
+      "hash160result": "ad714f6d836cecc6394d09b686db01017dd0b49c",
+      "qualifiedname": {
+        "namespace": "i5w5MuNik5NtLcYmNzcvaoixooEebB6MGV",
+        "name": "vrsc::system.proofs.controller.facebook"
+      }
+    },
+    "vrsc::system.proofs.controller.linkedin": {
+      "vdxfid": "iLWNwRnEujoenFaYvQ3ShkSXhcduw8j8R5",
+      "hash160result": "aceb990c8981b13773f9763d4b3d8e9a3ee1d3ba",
+      "qualifiedname": {
+        "namespace": "i5w5MuNik5NtLcYmNzcvaoixooEebB6MGV",
+        "name": "vrsc::system.proofs.controller.linkedin"
+      }
+    },
+    "vrsc::system.proofs.controller.reddit": {
+      "vdxfid": "i4eJshMkii8ML6FCMEFUqj5GgVUchRvQca",
+      "hash160result": "c778b90896928a8806109ba751d79d3162cdd10c",
+      "qualifiedname": {
+        "namespace": "i5w5MuNik5NtLcYmNzcvaoixooEebB6MGV",
+        "name": "vrsc::system.proofs.controller.reddit"
+      }
+    },
     "vrsc::system.services.accounts.discord": {
       "vdxfid": "i7aKFqemraKTTjmnuxMTAL6LNnYSUKq9J4",
       "hash160result": "c1d7f27cdd8f88504017155424345217a0d5f82c",
       "qualifiedname": {
         "namespace": "i5w5MuNik5NtLcYmNzcvaoixooEebB6MGV",
         "name": "vrsc::system.services.accounts.discord"
+      }
+    },
+    "vrsc::system.services.accounts.facebook": {
+      "vdxfid": "iLkriWzWDdUKPPWXKsULJteqCbeGQDa3Nr",
+      "hash160result": "704f1941f333262396315aff5fd3e3a607e490bd",
+      "qualifiedname": {
+        "namespace": "i5w5MuNik5NtLcYmNzcvaoixooEebB6MGV",
+        "name": "vrsc::system.services.accounts.facebook"
+      }
+    },
+    "vrsc::system.services.accounts.linkedin": {
+      "vdxfid": "iMphkK4mo4w83xs4kTFbkkg8SenAW5xNgJ",
+      "hash160result": "97298e79efacec4de296c38b5e98561c813143c9",
+      "qualifiedname": {
+        "namespace": "i5w5MuNik5NtLcYmNzcvaoixooEebB6MGV",
+        "name": "vrsc::system.services.accounts.linkedin"
       }
     },
     "vrsc::system.services.accounts.reddit": {

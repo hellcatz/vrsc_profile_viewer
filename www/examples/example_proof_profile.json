@@ -55,8 +55,7 @@
       },
       "iSYgqLigKLF62dLypvQV4pCCanJyqyRQ2F": {
         "qualifiedname":"vrsc::system.collections.content",
-        "content": [            
-            {"vdxfkey": "iRYGy6HyYW1qoZk9hAkFwDs7RygBRUsswW", "qualifiedname":"vrsc::system.collections.content.web.url", "name": "VerusCoin Website", "url": "https://verus.io/", "desc": "Short description of website."}
+        "content": [
         ]
       }
     }

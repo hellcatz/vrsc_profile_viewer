@@ -16,10 +16,41 @@
         "name": "LuckPool - Verus Mining Pool",
         "i9TbCypmPKRpKPZDjk3YcCEZXK6wmPTXjw":"https://luckpool.net"
       },
+      "_i7aKFqemraKTTjmnuxMTAL6LNnYSUKq9J4": {
+          "qualifiedname":"vrsc::system.services.accounts.discord",
+          "accountid": "...",
+          "i9TbCypmPKRpKPZDjk3YcCEZXK6wmPTXjw":"..."
+      },
+      "_iLkriWzWDdUKPPWXKsULJteqCbeGQDa3Nr": {
+          "qualifiedname":"vrsc::system.services.accounts.facebook",
+          "accountid": "...",
+          "i9TbCypmPKRpKPZDjk3YcCEZXK6wmPTXjw":"..."
+      },
+      "_iMphkK4mo4w83xs4kTFbkkg8SenAW5xNgJ": {
+          "qualifiedname":"vrsc::system.services.accounts.linkedin",
+          "accountid": "...",
+          "i9TbCypmPKRpKPZDjk3YcCEZXK6wmPTXjw":"..."
+      },
+      "_i8SMZJEZv2VabwL8vGi282iUKM1cY3F4xa": {
+          "qualifiedname":"vrsc::system.services.accounts.reddit",
+          "accountid": "...",
+          "i9TbCypmPKRpKPZDjk3YcCEZXK6wmPTXjw":"..."
+      },
+      "_i7FchM7um32xFYs1jMLHk3SaYYjCSiE9bD": {
+          "qualifiedname":"vrsc::system.services.accounts.twitter",
+          "accountname":"...",
+          "accountid":"@...",
+          "i9TbCypmPKRpKPZDjk3YcCEZXK6wmPTXjw":"..."
+      },
       "iD55EMBMDaeoBCBp8HqNebxK92aABKicT8": {
         "qualifiedname":"vrsc::system.keys.vrsc.address",
         "address":"RJmPPe65YfbwJmDdxSsQgyJ7KYr8ZaUpKi",
-        "i9TbCypmPKRpKPZDjk3YcCEZXK6wmPTXjw":"i9TbCypmPKRpKPZDjk3YcCEZXK6wmPTXjw 1: controller of VerusID \"vidptest@\" controls RJmPPe65YfbwJmDdxSsQgyJ7KYr8ZaUpKi:AdEdGgABQSAt9f4siT219pyRA69GZFz7p1Hh/ap+v+9Ah4deEO3OtDDO2qimn1S9qHVF6ZvzPhhd8BcujKPQZRXvMDqd8Qkx:H1VRXmbmFCrv9MwZSjT+NHf02igfzgXBV2LSl5Ef/GEyGpmBuE91zomyd4trA7yCTnJRfZ/hvVSBws1mttTHSKc="
+        "i9TbCypmPKRpKPZDjk3YcCEZXK6wmPTXjw":"i9TbCypmPKRpKPZDjk3YcCEZXK6wmPTXjw 1: controller of VerusID \"vidptest@\" controls RJmPPe65YfbwJmDdxSsQgyJ7KYr8ZaUpKi:AdEdGgABQSAt9f4siT219pyRA69GZFz7p1Hh/ap+v+9Ah4deEO3OtDDO2qimn1S9qHVF6ZvzPhhd8BcujKPQZRXvMDqd8Qkx:IGU1J0Cvks/+BW/jrCL+VoHb00MaCDf3tYJ9/ca5/k0bCGM/d9daEJZbttNwLVBPbrjAv6x+kiq/MjrzkyPTbhU="
+      },
+      "iRjhBnikFiZummQRxbtP3FexLemVoxzgWa": {
+        "qualifiedname":"vrsc::system.keys.vrsc.identity",
+        "address":"MyOtherId@",
+        "i9TbCypmPKRpKPZDjk3YcCEZXK6wmPTXjw":"i9TbCypmPKRpKPZDjk3YcCEZXK6wmPTXjw 1: controller of VerusID \"vidptest@\" controls VerusID "MyOtherId@":signature1:signature2"
       },
       "iSYgqLigKLF62dLypvQV4pCCanJyqyRQ2F": {
         "qualifiedname":"vrsc::system.collections.content",

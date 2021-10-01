@@ -84,6 +84,18 @@ let apiVerifyMessage = function(req, res, next){
         res.end(JSON.stringify(result));
     }, true);
 };
+function trimChar(string, charToRemove) {
+    while(string.charAt(0)==charToRemove) {
+        string = string.substring(1);
+    }
+    while(string.charAt(string.length-1)==charToRemove) {
+        string = string.substring(0,string.length-1);
+    }
+    return string;
+}
+function trimProofMsg(msg) {
+    return trimChar(trimChar(trimChar(trimChar(trimChar(trimChar(msg.replace(/\\"/g, '"').replace(/\\'/g, '\''), ' '),'\''),'"'),'<'),'>'),'\n');
+}
 
 let apiVerifyRedditProof = function(req, res, next){
     let address = req.body.address;
@@ -93,17 +105,18 @@ let apiVerifyRedditProof = function(req, res, next){
     }
     axios.get(website)
       .then(response => {
-        const htmlStripregex = /<[^>]+>/g;
-            const verusProofMsgregex = /['"]i9TbCypmPKRpKPZDjk3YcCEZXK6wmPTXjw.1:.controller of VerusID .* controls .*:.*['"]/g;
+            const htmlStripregex = /<[^>]+>/g;
+            const verusProofMsgregex = /['">\n]i[A-Za-z0-9]+ [0-9]+: controller of VerusID .* controls .*:[A-Za-z0-9/+=:]+['"<\n]/g;
             let body = he.decode(response.data.replace(htmlStripregex, ''));
             const matches = body.match(verusProofMsgregex);
             if (matches) {
                 for (let m of matches) {
                     // parse the above matched string for message and signature
-                    let proof = m;
+                    let proof = trimProofMsg(m);
+                    console.log(proof);
                     let s = proof.split(':');
-                    let message = he.decode(s[0] + ':' + s[1]).slice(1);
-                    let signature = s[2].slice(0, -1);
+                    let message = he.decode(s[0] + ':' + s[1]);
+                    let signature = s[2];
                     daemon.cmd('verifymessage', [address, signature, message], function(result) {
                         res.end(JSON.stringify(result));
                     }, true);
@@ -123,19 +136,19 @@ let apiVerifyWebsiteProof = function(req, res, next){
     let data = {
         "response": false
     }
-
     axios.get(website)
       .then(response => {
         const htmlStripregex = /<[^>]+>/g;
-        const verusProofMsgregex = /['"]i9TbCypmPKRpKPZDjk3YcCEZXK6wmPTXjw.1:.controller of VerusID .* controls .*:.*['"]/g;
+        const verusProofMsgregex = /['">\n]i[A-Za-z0-9]+ [0-9]+: controller of VerusID .* controls .*:[A-Za-z0-9/+=:]+['"<\n]/g;
         const matches = response.data.match(verusProofMsgregex);
         if (matches) {
             for (let m of matches) {
                 // parse the above matched string for message and signature
-                let proof = he.decode(m.replace(htmlStripregex, ''));
+                let proof = he.decode(trimProofMsg(m));
+                console.log(proof);
                 let s = proof.split(':');
-                let message = he.decode(s[0] + ':' + s[1]).slice(1);
-                let signature = s[2].slice(0, -1);
+                let message = he.decode(s[0] + ':' + s[1]);
+                let signature = s[2];
                 daemon.cmd('verifymessage', [address, signature, message], function(result) {
                     res.end(JSON.stringify(result));
                 }, true);
