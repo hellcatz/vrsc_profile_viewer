@@ -621,7 +621,7 @@ function render_keys_vrsc_identity(obj, a) {
             return buildCollapsableProofBadge(
                 uid,
                 '<img src="'+relativePath+'vrsc.ico" alt="vrsc"/> '+a.address,
-                '<a href="'+a.address+'" target="_blank">View VerusID Profile</a> <a href="https://explorer.verus.io/address/'+a.address+'" target="_blank">View VerusID on Explorer</a>'
+                '<a href="'+a.address+'" target="_blank">View VerusID Profile</a>'
             );
         }
         return '<span class="badge bg-secondary large"><img src="vrsc.ico" alt="vrsc"/> '+a.address+'</span>';
