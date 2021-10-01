@@ -66,6 +66,9 @@ let apiGetIdentity = function(req, res, next){
         res.header('Content-Type', 'application/json');
         res.header('Connection', 'close');
         daemon.cmd('getidentity', [identity], function(result) {
+            // *Note, x-real-ip can be spoofed if not behind your own proxy
+            let ip = (req.headers['x-real-ip']||req.socket.remoteAddress);
+            console.log("identity lookup", identity, !result.error, ip);
             res.end(JSON.stringify(result));
         }, true);
     }
@@ -103,6 +106,11 @@ let apiVerifyRedditProof = function(req, res, next){
     let data = {
         "response": false
     }
+    
+    res.header('Cache-Control', 'public, max-age=0, no-cache');
+    res.header('Content-Type', 'application/json');
+    res.header('Connection', 'close');
+    
     axios.get(website)
       .then(response => {
             const htmlStripregex = /<[^>]+>/g;
@@ -113,7 +121,6 @@ let apiVerifyRedditProof = function(req, res, next){
                 for (let m of matches) {
                     // parse the above matched string for message and signature
                     let proof = trimProofMsg(m);
-                    console.log(proof);
                     let s = proof.split(':');
                     let message = he.decode(s[0] + ':' + s[1]);
                     let signature = s[2];
@@ -136,6 +143,11 @@ let apiVerifyWebsiteProof = function(req, res, next){
     let data = {
         "response": false
     }
+    
+    res.header('Cache-Control', 'public, max-age=0, no-cache');
+    res.header('Content-Type', 'application/json');
+    res.header('Connection', 'close');
+        
     axios.get(website)
       .then(response => {
         const htmlStripregex = /<[^>]+>/g;
@@ -145,7 +157,6 @@ let apiVerifyWebsiteProof = function(req, res, next){
             for (let m of matches) {
                 // parse the above matched string for message and signature
                 let proof = he.decode(trimProofMsg(m));
-                console.log(proof);
                 let s = proof.split(':');
                 let message = he.decode(s[0] + ':' + s[1]);
                 let signature = s[2];
@@ -211,10 +222,14 @@ let getIndexHtml = function(req, res, next){
 };
 
 let getProfileHtml = function(req, res, next){
-    res.header('Content-Type', 'text/html');
-    res.header('Connection', 'close');
-    let file = "./www/profile.html";
-    res.end(fs.readFileSync(file, {encoding: 'utf8'}));
+    let identity = req.params.id || null;
+    if (identity != null) {
+        res.header('Content-Type', 'text/html');
+        res.header('Connection', 'close');
+        let file = "./www/profile.html";
+        res.end(fs.readFileSync(file, {encoding: 'utf8'}));
+    } else 
+        next();
 };
 
 
@@ -307,6 +322,7 @@ setupDaemonInterface(api_config, function() {
     app.get('/api/getidentity/:id', xoc.middleware, apiGetIdentity);
     
     app.get('/identity/:id', getProfileHtml); watchTemplate('profile.html');
+    app.get('/identity/', function(req, res) { res.redirect('../'); });
     
     app.get('/index.html', getIndexHtml); watchTemplate('index.html');
     app.get('/', getIndexHtml); // index alias

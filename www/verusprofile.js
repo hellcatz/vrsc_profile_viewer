@@ -839,15 +839,13 @@ function verifywebsite(address, url, answer) {
 // The browser begins execution here
 // ------------------------------------------
 $( document ).ready(function() {
-    let idlookup="vidptest@";
+    let idlookup="mike@";
     let path = "";
     let current_url = $(location).attr("href");
     if (!isEmpty(current_url)) {
-        // https://luckpool.net/profile/identity/testid@
-        // match the last /testid@  for id lookup        
         if (current_url.indexOf("identity/") > 0) {
             relativePath="../";
-            idlookup = current_url.substr(current_url.indexOf("identity/")+9);
+            idlookup = decodeURIComponent(current_url.substr(current_url.indexOf("identity/")+9));
         }
     }
     // load known vdxfids then load profile for identity
@@ -856,7 +854,6 @@ $( document ).ready(function() {
         getIdentityProfile(idlookup);
 
     }).fail(function(){
-        onProfileJsonError("Internal server error ...");
-        console.log("Unable to load known vdxfids.json");
+        onProfileJsonError("Can not load file vdxfids.json ...");
     });
 });
