@@ -25,15 +25,6 @@ ArWeave is being used for decentralized storage of VerusID profiles.
 
     ./verus updateidentity '{"name":"vidptest","contentmap":{"cf19fddae8aa266c8d0d4807196681666cfd4562":"68d838cf61b0958a086cd4a46e1e462371801212cee1f687ee687c701b09609a"}}'
 
-### WIP - Example profile.json
-
-    More information coming soon...
-     
-[mike.vrsc profile.json](https://tw45xa65wo3am55lwnffxy3s4olyovnjh2lfwohar4glew3dudaa.arweave.net/nbnbg92ztgZ3q7NKW-Ny45eHVak-lls44I8MsltjoMA/)
-
-[vidptest.vrsc profile.json](https://raw.githubusercontent.com/hellcatz/vrsc_profile_viewer/main/www/examples/vidptest.json)
-
-
 ### Deploy modified profile.json to ArWeave
 When uploading to Arweave, you must tag the file with a special vdxfkey tag.
 
