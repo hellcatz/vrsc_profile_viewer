@@ -13,7 +13,7 @@
       },
       "i8xHQFLZyqpo6z6u7mXt3ER2fbgr7z853j": {
         "qualifiedname":"vrsc::system.identity.profile.image",
-        "notes": "This is optional, display an extra image (logo)",
+        "notes": "This is optional, display an extra image over header",
         "image": "https://verus.io/images/logos/Verus_Logo.svg"
       },
       "iMMRVtGBNkr7V2hUNd4LLFiPQyzGrxAhx1": {
@@ -23,7 +23,7 @@
       },
       "iAvXhoTu7EtDcGiUsyd1BysHMo1bTNDrTd": {
         "qualifiedname":"vrsc::system.identity.profile.about",
-        "text": "This is a sample description about the profile.\n`git clone https://github.com/VerusCoin/VerusCoin/`\n\n    Markdown is rendered by [showdownjs](https://github.com/showdownjs/showdown)"
+        "text": "This is a sample description about the profile.\n\nMarkdown is rendered by **showdownjs** [showdownjs](https://github.com/showdownjs/showdown)"
       },
       "i3X9irKQDqHNtYxfwEzECPHRV1RzzGnkHf": {
         "qualifiedname":"vrsc::system.services.website",
@@ -60,7 +60,7 @@
       "i7FchM7um32xFYs1jMLHk3SaYYjCSiE9bD": {
         "qualifiedname":"vrsc::system.services.accounts.twitter",
         "accountid":"10kXgains",
-        "i9TbCypmPKRpKPZDjk3YcCEZXK6wmPTXjw":"https://twitter.com/10kXgains/status/1440797017970675715"
+        "i9TbCypmPKRpKPZDjk3YcCEZXK6wmPTXjw":"https://twitter.com/10kXgains/status/1442961721115783168"
       },
       "iD55EMBMDaeoBCBp8HqNebxK92aABKicT8": {
         "qualifiedname":"vrsc::system.keys.vrsc.address",
@@ -72,30 +72,31 @@
         "address":"miketout@",
         "i9TbCypmPKRpKPZDjk3YcCEZXK6wmPTXjw":"i9TbCypmPKRpKPZDjk3YcCEZXK6wmPTXjw 1: controller of VerusID \"mike@\" controls VerusID \"miketout@\":Ac4kGgABQR8LfVNsiJqux51fRYupI37lhMbBhjtJe6AaIP/BpCpMESM69evpFI9n5EaAVGG/U2XPI973veKuOtBehTsCii/O:Ac4kGgABQR+25Ka49OGjDaOnoC3a0zSQdIfqBCfb3W7xQqXCokBKEVx5YJY1Ui5hFeJWM9pjp0D6IGHZtedtYZpBXzK5cS8T"
       },
-      "_i642EeDhKVHgHU6mpPFUUgzHfeZKUEQEAd": {
+      "i642EeDhKVHgHU6mpPFUUgzHfeZKUEQEAd": {
         "qualifiedname":"vrsc::system.keys.eth.address",
-        "address":"0xAD84C9EE28FB4c3b9C6ef1B86D1ED00A82DB84E9",
-        "i9TbCypmPKRpKPZDjk3YcCEZXK6wmPTXjw":"i9TbCypmPKRpKPZDjk3YcCEZXK6wmPTXjw 1: controller of VerusID \"testID@\" controls 0xAD84C9EE28FB4c3b9C6ef1B86D1ED00A82DB84E9:AUICGgAB:AUICGgAB"
+        "address":"0x43775388d4D21661F11432B0Cb4e206Ba5Fa894B",
+        "i9TbCypmPKRpKPZDjk3YcCEZXK6wmPTXjw":"i9TbCypmPKRpKPZDjk3YcCEZXK6wmPTXjw 1: controller of VerusID \"vidptest@\" controls 0x43775388d4D21661F11432B0Cb4e206Ba5Fa894B:AZAzGgABQR8Zb0dP18px/193ZJtPRqxoAhEw6FVBJfp2Y/kd5f2QwEPjB06NkKL76ECDHIKy/z46IyTCCFN3ubSf+AHc/1SZ:0x2a63e9d188e6f981920872f4a6f578d81fe308445b094f9417115e269e8ba8be29193cf478da81e7377760676d27125900df03814a0821ba9670a7cc7da5c4a01b"
       },
-      "_iNw7KJ9NvuV6zM99i7F7sb21hPpw8wRUKX": {
+      "iNw7KJ9NvuV6zM99i7F7sb21hPpw8wRUKX": {
         "qualifiedname":"vrsc::system.keys.btc.address",
         "address":"bc1qwcx5j4s3rn04d6f25mwt3wrkp9tj2nuv8du3c4",
         "i9TbCypmPKRpKPZDjk3YcCEZXK6wmPTXjw":"i9TbCypmPKRpKPZDjk3YcCEZXK6wmPTXjw 1: controller of VerusID \"testID@\" controls bc1qwcx5j4s3rn04d6f25mwt3wrkp9tj2nuv8du3c4:AUICGgABQR9uB4x5R7pqTZx2i4OO19BQxpyZ2Vua8A8nyjMWjJj1HyDPDwlzGU3X7s5iMYh8f8HRCbdl8phDpZ9BvTdloQ7M:H2RHTc4lPzGKnKSjhBf6yiiSmaTLaLKA0iX9Hlbhz3SZRRkSyrsvQ4c0o7iBU3k+K0QdoGPDaK9XvveFgGsbNx0="
       },
-      "iSYgqLigKLF62dLypvQV4pCCanJyqyRQ2F": {
+      "iCS9VrxGjNsHUhrVqkV17Ws66cmg5rZecV": {
         "qualifiedname":"vrsc::system.collections.arweave",
+        "content1name": "vrsc::system.collections.content.arweave.post",
+        "content2name": "vrsc::system.collections.content.arweave.image",
         "content": [
-            "iApfYRGU8SkcVK3sDAJfATQ64smkmKCscW",
-            "iS33Fgd1Y7H6vVoNMWJxM9gCi6drsSRQVp"
+            "iS33Fgd1Y7H6vVoNMWJxM9gCi6drsSRQVp",
+            "iApfYRGU8SkcVK3sDAJfATQ64smkmKCscW"
         ]
       },
       "iSYgqLigKLF62dLypvQV4pCCanJyqyRQ2F": {
         "qualifiedname":"vrsc::system.collections.content",
         "content": [
-            {"vdxfkey":"iS33Fgd1Y7H6vVoNMWJxM9gCi6drsSRQVp", "qualifiedname":"vrsc::system.collections.content.arweave.post", "txid":"UgykBtjqX91rfXstySlQQogpFhgTObNB17leqLBoF3Q", "title":"", "date":"1632784879"},
             {"vdxfkey":"iSbxi18bWUYMnMmFKpgZAZgu62uv7WEC4e", "qualifiedname":"vrsc::system.collections.content.web.text", "text":"This is example text in the content collection. Enjoy the image below."},
             {"vdxfkey":"iSZHGtE7z8xHhWHaxxphkzsSXkrTZCr5AP", "qualifiedname":"vrsc::system.collections.content.web.image", "url":"https://c.tenor.com/QAN9RxLUSxUAAAAM/cat-cute.gif", "alt":"funny cat fight ko"},
-            {"vdxfkey":"i7yXtWCauSpcxwpwavyMseQxTRh2WNfNtT", "qualifiedname":"vrsc::system.collections.content.web.pre", "text":"This text is inside a pre tag below the image above."}            
+            {"vdxfkey":"i7yXtWCauSpcxwpwavyMseQxTRh2WNfNtT", "qualifiedname":"vrsc::system.collections.content.web.pre", "text":"This text is inside a pre tag below the image above."}
         ]
       }
     }

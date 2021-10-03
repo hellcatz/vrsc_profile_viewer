@@ -5,6 +5,10 @@ const arconfig = {
 };
 const arweave = Arweave.init(arconfig);
 const markdownconverter = new showdown.Converter();
+
+// https://docs.linkpool.io/docs/public_rpc
+const web3 = new Web3(Web3.givenProvider || 'https://main-light.eth.linkpool.io/');
+
 const hexCharsregex = /[0-9A-Fa-f]{6}/g;
 const base64urlregex = /^[A-Za-z0-9_\-]+$/;
 
@@ -13,6 +17,7 @@ const htmlNotVerified = '<span style="color: red;"><i class="fas fa-exclamation-
 
 const htmlSpinnerVerified = '<span style="color: green;"><i class="fas fa-user-check"></i></span>';
 const htmlSpinnerNotVerified = '<span style="color: red;"><i class="fas fa-exclamation-triangle"></i></span>';
+
 
 let relativePath="";
 
@@ -622,7 +627,7 @@ function render_keys_vrsc_address(obj, a) {
                     if (verified2) {
                         appendHtml += htmlVerified+'<br />';
                     } else {
-                        appendHtml += htmlVerified+'<br />';
+                        appendHtml += htmlNotVerified+'<br />';
                     }
                     // udpate spinner
                     if (verified && verified2) {
@@ -659,12 +664,12 @@ function render_keys_vrsc_identity(obj, a) {
                 } else {
                     appendHtml += htmlNotVerified+'<br />';
                 }
-                verifymessage(a.address, proof.signature2, proof.message+':'+proof.signature1, function(verified2) {
+                verifymessage(a.address, proof.signature2, (proof.message+':'+proof.signature1), function(verified2) {
                     appendHtml += '<i class="fas fa-key"></i> Signature 2:';
                     if (verified2) {
                         appendHtml += htmlVerified+'<br />';
                     } else {
-                        appendHtml += htmlVerified+'<br />';
+                        appendHtml += htmlNotVerified+'<br />';
                     }
                     // udpate spinner
                     if (verified && verified2) {
@@ -701,21 +706,22 @@ function render_keys_eth_address(obj, a) {
                 } else {
                     appendHtml += htmlNotVerified+'<br />';
                 }
-                // partially verified
-                if (verified) {
-                    // TODO, verify second signature
-                    verified = false;
-                    appendHtml += '<i class="fas fa-key"></i> Signature 2: '+htmlNotVerified+' (unable to check, todo)<br />';
-                }                
+                let signer = web3.eth.accounts.recover((proof.message+':'+proof.signature1), proof.signature2);
+                let verified2 = (signer == a.address);
+                appendHtml += '<i class="fas fa-key"></i> Signature 2:';
+                if (verified2) {
+                    appendHtml += htmlVerified+'<br />';
+                } else {
+                    appendHtml += htmlNotVerified+'<br />';
+                }
                 appendHtml += '</p>'
                 
                 // udpate spinner
-                if (verified) {
+                if (verified && verified2) {
                     $("#"+uid+"spinner").html(htmlSpinnerVerified);
                 } else {
                     $("#"+uid+"spinner").html(htmlSpinnerNotVerified);
                 }
-                
                 $("#"+uid).prepend(appendHtml);
             });
             return buildCollapsableProofBadge(
@@ -742,21 +748,23 @@ function render_keys_btc_address(obj, a) {
                 } else {
                     appendHtml += htmlNotVerified+'<br />';
                 }
-                // partially verified
-                if (verified) {
-                    // TODO, verify second signature
-                    verified = false;
-                    appendHtml += '<i class="fas fa-key"></i> Signature 2: '+htmlNotVerified+' (unable to check, todo)<br />';
-                }                
-                appendHtml += '</p>'
-                
+                let verified2 = false;
+                if (bitcoinjs) {
+                    verified2 = bitcoinjs.message.verify((proof.message+':'+proof.signature1), a.address, proof.signature2, null, true);
+                    appendHtml += '<i class="fas fa-key"></i> Signature 2:';
+                    if (verified2) {
+                        appendHtml += htmlVerified+'<br />';
+                    } else {
+                        appendHtml += htmlNotVerified+'<br />';
+                    }
+                }
                 // udpate spinner
-                if (verified) {
+                if (verified && verified2) {
                     $("#"+uid+"spinner").html(htmlSpinnerVerified);
                 } else {
                     $("#"+uid+"spinner").html(htmlSpinnerNotVerified);
                 }
-                
+                appendHtml += '</p>';
                 $("#"+uid).prepend(appendHtml);
             });
             return buildCollapsableProofBadge(
