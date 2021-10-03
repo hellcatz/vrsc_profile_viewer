@@ -215,6 +215,14 @@
         "name": "vrsc::system.proofs.controller.facebook"
       }
     },
+    "vrsc::system.proofs.controller.github": {
+      "vdxfid":"i5cjUDhRPEBQctXQYr3gNq8ZZakdBZwDKw",
+      "hash160result":"b627bd17208e8a1d956e202fa688423190a07d17",
+      "qualifiedname":{
+         "namespace":"i5w5MuNik5NtLcYmNzcvaoixooEebB6MGV",
+         "name":"vrsc::system.proofs.controller.github"
+      }
+    },
     "vrsc::system.proofs.controller.linkedin": {
       "vdxfid": "iLWNwRnEujoenFaYvQ3ShkSXhcduw8j8R5",
       "hash160result": "aceb990c8981b13773f9763d4b3d8e9a3ee1d3ba",
@@ -245,6 +253,14 @@
       "qualifiedname": {
         "namespace": "i5w5MuNik5NtLcYmNzcvaoixooEebB6MGV",
         "name": "vrsc::system.services.accounts.facebook"
+      }
+    },
+    "vrsc::system.services.accounts.github": {
+      "vdxfid": "iGgF5k7KBbRSHnhhRSK53smHMYCtn8YbvC",
+      "hash160result": "448acd0af09dd65ebd279bf1ec9c7c195cfad090",
+      "qualifiedname": {
+        "namespace": "i5w5MuNik5NtLcYmNzcvaoixooEebB6MGV",
+        "name": "vrsc::system.services.accounts.github"
       }
     },
     "vrsc::system.services.accounts.linkedin": {

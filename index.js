@@ -4,7 +4,6 @@ const cookieParser = require('cookie-parser')
 const helmet = require('helmet');
 const compress = require('compression');
 const fs = require('fs');
-const bodyParser = require('body-parser');
 const he = require('he');
 const outputcache = require('outputcache');
 const axios = require('axios');
@@ -62,6 +61,7 @@ let apiGetVdxfid = function(req, res, next){
 let apiGetIdentity = function(req, res, next){
     let identity = req.params.id || null;
     if (identity != null) {
+        if (!identity.endsWith('@')) { identity = identity + '@'; }
         res.header('Cache-Control', 'public, max-age=0, no-cache');
         res.header('Content-Type', 'application/json');
         res.header('Connection', 'close');
@@ -87,90 +87,85 @@ let apiVerifyMessage = function(req, res, next){
         res.end(JSON.stringify(result));
     }, true);
 };
-function trimChar(string, charToRemove) {
-    while(string.charAt(0)==charToRemove) {
-        string = string.substring(1);
-    }
-    while(string.charAt(string.length-1)==charToRemove) {
-        string = string.substring(0,string.length-1);
-    }
-    return string;
-}
-function trimProofMsg(msg) {
-    return trimChar(trimChar(trimChar(trimChar(trimChar(trimChar(msg.replace(/\\"/g, '"').replace(/\\'/g, '\''), ' '),'\''),'"'),'<'),'>'),'\n');
+
+function cleanupProofMsg(msg) {
+    // unescape quotes
+    msg = msg.replace(/\\"/g, '"').replace(/\\'/g, '\'');
+    // trim off extra start chars
+    msg = msg.replace(/^['"\n ;>]/, '');
+    // trim off extra end chars
+    msg = msg.replace(/['"\n &<]$/, '');
+    return msg;
 }
 
-let apiVerifyRedditProof = function(req, res, next){
-    let address = req.body.address;
-    let website = req.body.website;
-    let data = {
-        "response": false
-    }
-    
-    res.header('Cache-Control', 'public, max-age=0, no-cache');
-    res.header('Content-Type', 'application/json');
-    res.header('Connection', 'close');
-    
-    axios.get(website)
+function scrapeWebsiteForProofs(website, answer) {
+    let data = [];
+    let log = 'scrape for proofs';
+    // do not download more than 768kB
+    axios.get(website, {
+          maxContentLength: 786432,
+          maxBodyLength: 786432
+      })
       .then(response => {
-            const htmlStripregex = /<[^>]+>/g;
-            const verusProofMsgregex = /['">\n]i[A-Za-z0-9]+ [0-9]+: controller of VerusID .* controls .*:[A-Za-z0-9/+=:]+['"<\n]/g;
-            let body = he.decode(response.data.replace(htmlStripregex, ''));
-            const matches = body.match(verusProofMsgregex);
-            if (matches) {
-                for (let m of matches) {
-                    // parse the above matched string for message and signature
-                    let proof = trimProofMsg(m);
-                    let s = proof.split(':');
-                    let message = he.decode(s[0] + ':' + s[1]);
+        let htmlStripregex = /<[^>]+>/g;
+        let verusProofMsgregex = /(^|['"\n>;])i[A-Za-z0-9]+ [0-9]+: controller of VerusID .* controls .*:[A-Za-z0-9/+=:]+(\1|[<&\n])/g;
+        let proofs = response.data.match(verusProofMsgregex);
+        if (proofs && Array.isArray(proofs)) {
+            for (let p of proofs) {
+                // parse the above matched string for message and signature
+                let proof = he.decode(cleanupProofMsg(p.replace(htmlStripregex, '')));
+                let s = proof.split(':');
+                if (s.length > 2) {
+                    let message = (s[0] + ':' + s[1]);
                     let signature = s[2];
-                    daemon.cmd('verifymessage', [address, signature, message], function(result) {
-                        res.end(JSON.stringify(result));
-                    }, true);
-                    return;
+                    data.push({message: message, signature: signature, proof: proof});
                 }
             }
-            res.end(JSON.stringify(data));
+        }
+        log += (' found '+data.length.toString()+' @ '+website);
+        console.log(log);
+        answer(data);
       })
       .catch(error => {
-        res.end(JSON.stringify(data));
+        console.log(log+' failed @ '+website, error);
+        answer(data);
       });
+}
+
+let apiGetWebsiteProofs = function(req, res, next){
+    let address = req.body.address;
+    let website = req.body.website;
+    if (address && website) {
+        res.header('Cache-Control', 'public, max-age=0, no-cache');
+        res.header('Content-Type', 'application/json');
+        res.header('Connection', 'close');
+        scrapeWebsiteForProofs(website, function(proofs) {
+            res.end(JSON.stringify(proofs));
+        });
+    } else
+        next();
 };
 
 let apiVerifyWebsiteProof = function(req, res, next){
     let address = req.body.address;
     let website = req.body.website;
-    let data = {
-        "response": false
-    }
-    
-    res.header('Cache-Control', 'public, max-age=0, no-cache');
-    res.header('Content-Type', 'application/json');
-    res.header('Connection', 'close');
-        
-    axios.get(website)
-      .then(response => {
-        const htmlStripregex = /<[^>]+>/g;
-        const verusProofMsgregex = /['">\n]i[A-Za-z0-9]+ [0-9]+: controller of VerusID .* controls .*:[A-Za-z0-9/+=:]+['"<\n]/g;
-        const matches = response.data.match(verusProofMsgregex);
-        if (matches) {
-            for (let m of matches) {
-                // parse the above matched string for message and signature
-                let proof = he.decode(trimProofMsg(m));
-                let s = proof.split(':');
-                let message = he.decode(s[0] + ':' + s[1]);
-                let signature = s[2];
-                daemon.cmd('verifymessage', [address, signature, message], function(result) {
+    if (address && website) {
+        res.header('Cache-Control', 'public, max-age=0, no-cache');
+        res.header('Content-Type', 'application/json');
+        res.header('Connection', 'close');
+        scrapeWebsiteForProofs(website, function(proofs) {
+            for (let s of proofs) {
+                daemon.cmd('verifymessage', [address, s.signature, s.message], function(result) {
                     res.end(JSON.stringify(result));
                 }, true);
+                // only verify first proof, return
                 return;
             }
-        }
-        res.end(JSON.stringify(data));
-      })
-      .catch(error => {
-        res.end(JSON.stringify(data));
-      });
+            // no proofs found, verification failed
+            res.end(JSON.stringify({"response": false }));
+        });
+    } else
+        next();
 };
 
 // --------------------------
@@ -313,22 +308,21 @@ setupDaemonInterface(api_config, function() {
     app.use(compress());
 
     // API urls
-    app.use(bodyParser.json());
-    app.post('/api/verifyreddit', apiVerifyRedditProof);
+    app.use(express.json());
     app.post('/api/verifywebsite', apiVerifyWebsiteProof);
     app.post('/api/verifymessage', apiVerifyMessage);
+
+    app.post('/api/getwebsiteproof', apiGetWebsiteProofs); // scrape url for any verus proofs
     
-    app.get('/api/getvdxfid/:id', xoc.middleware, apiGetVdxfid);
     app.get('/api/getidentity/:id', xoc.middleware, apiGetIdentity);
+    app.get('/api/getvdxfid/:id', xoc.middleware, apiGetVdxfid);
     
     app.get('/identity/:id', getProfileHtml); watchTemplate('profile.html');
-    app.get('/identity/', function(req, res) { res.redirect('../'); });
     
     app.get('/index.html', getIndexHtml); watchTemplate('index.html');
     app.get('/', getIndexHtml); // index alias
 
     // STATIC FILES
-    app.use('/static', express.static('./www'));
     app.use(express.static('./www'));
 
     // HANDLE ERRORS

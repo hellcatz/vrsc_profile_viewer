@@ -7,33 +7,31 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.1/js/bootstrap.min.js" integrity="sha512-ewfXo9Gq53e1q1+WDTjaHAGZ8UvCWq0eXONhwDuIoaH8xz2r96uoAYaQCm1oQhnBfRXrvJztNXFsTloJfgbL5Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     <style>
-     html, body {
+      html, body {
         font-family: Arial, Helvetica, sans-serif;
         padding: 0.5rem;
-     }
-     .card {
-        -webkit-border-radius: 12px;
-        -moz-border-radius: 12px;
-        border-radius: 12px;
      }
      .vrsc-system-identity-profile-settings {
         -webkit-border-radius: 12px;
         -moz-border-radius: 12px;
         border-radius: 12px;
      }
-     .card-body {
-        margin: 0 0 0 0;
-        width: 100%;
-     }
      .vrsc-container {
-        width: 50%;
+        width: 80%;
         min-width: 38rem;
         margin:0 auto;
      }
      .vrsc-system-identity-profile-title {
         position: absolute;
-        top: 0.2rem;
-        left: 0.4rem;
+        top: 0.6rem;
+        left: 0.6rem;
+     }
+     .vrsc-system-identity-profile-image img {
+        position: absolute;
+        top: 0.6rem;
+        right: 0.6rem;
+        max-width: 8rem;
+        max-height: 4rem;
      }
      .vrsc-system-identity-profile-avatar {
         float: right;
@@ -41,8 +39,6 @@
         right: 0.4rem;
      }
      .vrsc-system-identity-profile-avatar img {
-        margin: 0 0 0 0;
-        padding: 0 0 0 0;
         width: 7rem;
         border-radius: 50%;
      }
@@ -54,7 +50,8 @@
         -moz-border-radius: 6px 6px 0 0;
         border-radius: 6px 6px 0 0;
         object-fit: cover;
-        max-height: 6rem;
+        width: 100%;
+        max-height: 8rem;
      }
      .vrsc-system-collections-content img {
         object-fit: contain;
@@ -77,7 +74,7 @@
            <button type="submit">View Proofs</button>
         </form>
         <hr />
-        <p>Currently, there are only few VerusID Profiles currently working(-in-progress).
+        <p>Currently, there are only few Example VerusID Profiles currently working(-in-progress).
         <ul>
             <li><a href="identity/mike@">mike@</a></li>
             <li><a href="identity/vidptest@">vidptest@</a></li>

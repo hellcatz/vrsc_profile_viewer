@@ -1,15 +1,15 @@
 <!DOCTYPE html><html lang="en">
 <head>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.1/css/bootstrap.min.css" integrity="sha512-6KY5s6UI5J7SVYuZB4S/CZMyPylqyyNZco376NM2Z8Sb8OxEdp02e1jkKk/wZxIEmjQ6DRCEBhni+gpr9c4tvA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/core.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/md5.js"></script>
+    <link id="bootstrap_template" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.1/css/bootstrap.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.1/js/bootstrap.min.js" integrity="sha512-ewfXo9Gq53e1q1+WDTjaHAGZ8UvCWq0eXONhwDuIoaH8xz2r96uoAYaQCm1oQhnBfRXrvJztNXFsTloJfgbL5Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/1.9.1/showdown.min.js" integrity="sha512-L03kznCrNOfVxOUovR6ESfCz9Gfny7gihUX/huVbQB9zjODtYpxaVtIaAkpetoiyV2eqWbvxMH9fiSv5enX7bw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/core.min.js" integrity="sha512-t8vdA86yKUE154D1VlNn78JbDkjv3HxdK/0MJDMBUXUjshuzRgET0ERp/0MAgYS+8YD9YmFwnz6+FWLz1gRZaw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/md5.min.js" integrity="sha512-3sGbaDyhjGb+yxqvJKi/gl5zL4J7P5Yh4GXzq+E9puzlmVkIctjf4yP6LfijOUvtoBI3p9pLKia9crHsgYDTUQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     <script src="../js/arweave.bundle.min.js"></script>
     
@@ -19,29 +19,27 @@
         font-family: Arial, Helvetica, sans-serif;
         padding: 0.5rem;
      }
-     .card {
-        -webkit-border-radius: 12px;
-        -moz-border-radius: 12px;
-        border-radius: 12px;
-     }
      .vrsc-system-identity-profile-settings {
         -webkit-border-radius: 12px;
         -moz-border-radius: 12px;
         border-radius: 12px;
      }
-     .card-body {
-        margin: 0 0 0 0;
-        width: 100%;
-     }
      .vrsc-container {
-        width: 50%;
+        width: 80%;
         min-width: 38rem;
         margin:0 auto;
      }
      .vrsc-system-identity-profile-title {
         position: absolute;
-        top: 0.2rem;
-        left: 0.4rem;
+        top: 0.6rem;
+        left: 0.6rem;
+     }
+     .vrsc-system-identity-profile-image img {
+        position: absolute;
+        top: 0.6rem;
+        right: 0.6rem;
+        max-width: 8rem;
+        max-height: 4rem;
      }
      .vrsc-system-identity-profile-avatar {
         float: right;
@@ -49,8 +47,7 @@
         right: 0.4rem;
      }
      .vrsc-system-identity-profile-avatar img {
-        margin: 0 0 0 0;
-        padding: 0 0 0 0;
+        margin-left: 0.5rem;
         width: 7rem;
         border-radius: 50%;
      }
@@ -58,9 +55,9 @@
         min-height: 3rem;
      }
      .vrsc-system-identity-profile-header img {
-        -webkit-border-radius: 6px 6px 0 0;
-        -moz-border-radius: 6px 6px 0 0;
-        border-radius: 6px 6px 0 0;
+        -webkit-border-radius: 12px 12px 0 0;
+        -moz-border-radius: 12px 12px 0 0;
+        border-radius: 12px 12px 0 0;
         object-fit: cover;
         width: 100%;
         max-height: 8rem;
@@ -75,20 +72,21 @@
 <body>
 <div class="vrsc-container">
     <!--- Profile Card -->
-    <div class="card border border-5 vrsc-system-identity-profile-settings">
+    <div class="card vrsc-system-identity-profile-settings">
         <div class="vrsc-system-identity-profile-background">
-            <div class="card-header border-bottom border-3 p-0 m-0">
+            <div class="card-header border-bottom p-0 m-0" style="overflow: hidden;">
                 <!--- Header -->
-                <div class="p-0 m-0 vrsc-system-identity-profile-title"></div>
-                <div class="p-0 m-0 vrsc-system-identity-profile-header"></div>
+                <div class="vrsc-system-identity-profile-image"></div>
+                <div class="vrsc-system-identity-profile-title"></div>
+                <div class="vrsc-system-identity-profile-header"></div>
             </div>
             <div class="card-body">
                 <!--- Body -->
                 <div class="vrsc-system-identity-profile-avatar"></div>
-                <div class="vrsc-system-identity-profile-image"></div>
                 <div class="vrsc-system-identity-profile-about"></div>
 
                 <div class="vrsc-system-services-website"></div>
+                <div class="vrsc-system-services-accounts-github"></div>
                 <div class="vrsc-system-services-accounts-discord"></div>
                 <div class="vrsc-system-services-accounts-facebook"></div>
                 <div class="vrsc-system-services-accounts-linkedin"></div>
@@ -100,7 +98,7 @@
                 <div class="vrsc-system-keys-eth-address"></div>
                 <div class="vrsc-system-keys-btc-address"></div>
               
-                <!--- Render Content Collection -->
+                <!--- Content Collection -->
                 <div class="vrsc-system-collections-content"></div>
             </div>
         </div>

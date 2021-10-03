@@ -63,18 +63,16 @@ function DaemonInterface(daemons, logger) {
             auth: instance.user + ':' + instance.password,
             agent: false,
             headers: {
-                'Content-Length': jsonData.length,
+                'Content-Length': Buffer.from(jsonData, 'utf-8').length,
                 'Connection': 'close'
             }
         };
         let parseJson = function (res, data) {
             let dataJson;
-            
             if (res.statusCode === 401) {
                 logger('error', 'Unauthorized RPC access - invalid RPC username or password');
                 return;
             }
-
             try {
                 dataJson = JSON.parse(data);
             }
@@ -108,7 +106,7 @@ function DaemonInterface(daemons, logger) {
             else
                 callback({type: 'request error', message: e.message}, null);
         });
-        req.end(jsonData);
+        req.end(jsonData, 'utf-8');
     }
 
 

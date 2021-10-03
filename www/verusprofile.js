@@ -116,21 +116,25 @@ function getIdentityProfile(identity) {
                 getCollectionsProfileFromArweave(arweave);
             }
             else {
-                onProfileJsonError("Verus ID "+identity+" does not provide a compatible data collection source in contentmap.");
+                onProfileJsonError("Verus ID "+identity+" does not provide a compatible data storage source in identity.contentmap." + render_identity_details(), "Missing Profile");
             }
             
         } else {
-            onProfileJsonError("Verus ID "+identity+" does not provide a content map.");
+            onProfileJsonError("Verus ID "+identity+" does not exist.", "Not Found");
         }
 
     }).fail(function(){
-        console.log("Failed to get identity json response.");
+        onProfileJsonError("API call failed unexpectedly.");
     });
 }
 
-function onProfileJsonError(errorStr) {
+function render_identity_details() {
+    return "<pre>"+JSON.stringify(vrsc_id,null,2)+"</pre>";
+}
+
+function onProfileJsonError(errorStr, title) {
     console.log(errorStr);
-    $(".vrsc-system-identity-profile-title").html("Error Loading ...");
+    $(".vrsc-system-identity-profile-title").html((!title?"<h3>Error</h3>":"<h3>"+title+"</h3>"));
     $(".vrsc-system-identity-profile-about").html("<p>"+errorStr+"</p>");
 }
 
@@ -147,7 +151,7 @@ function getCollectionsProfileFromArweave(addressHex) {
                                 first: 1\
                                 sort: HEIGHT_DESC\
                                 owners: [\""+address+"\"]\
-                                tags: { name: \"iEXZ3nd4K9fmGDSiQ8J6XLATzUUSKp1eAz\", values: [\"1\"] }\
+                                tags: { name: \""+vdxfids["vrsc::system.identity.profile.public"].vdxfid+"\", values: [\"1\"] }\
                               ) {\
                                 edges {\
                                   node {\
@@ -188,17 +192,17 @@ function getCollectionsProfileFromArweave(addressHex) {
                                     if (vrsc_profile !== undefined) {
                                         updateUiOnProfileReceived();
                                     } else {
-                                        onProfileJsonError(vdxfids["vrsc::system.identity.profile.public"].vdxfid+" not found in profile json object from arweave txid "+txid);
+                                        onProfileJsonError(vdxfids["vrsc::system.identity.profile.public"].vdxfid+" not found in profile object from ArWeave txid "+txid);
                                     }
                                 } else {
-                                    onProfileJsonError("Syntax error in profile json object fetched from arweave txid "+txid);
+                                    onProfileJsonError("Syntax error in object fetched from ArWeave transaction "+txid);
                                 }
                             });
                         } else {
-                            onProfileJsonError("Arweave profile transaction id not found.");
+                            onProfileJsonError("ArWeave transaction not found for "+address);
                         }
                     } else {
-                        onProfileJsonError("Arweave profile transaction id not found.");
+                        onProfileJsonError("ArWeave transaction not found for "+address);
                     }
                 },
                 error: function (request, http, error) {
@@ -237,12 +241,17 @@ function updateUiOnProfileReceived()
     $(".vrsc-system-identity-profile-title").html("<h3>"+vrsc_id.identity.name + "@</h3>");
         
     if (vrsc_profile[vdxfids["vrsc::system.identity.profile.settings"].vdxfid] !== undefined) {
+        if (vrsc_profile[vdxfids["vrsc::system.identity.profile.settings"].vdxfid].bootstrap_template != undefined) {
+            $("#bootstrap_template").attr("href", vrsc_profile[vdxfids["vrsc::system.identity.profile.settings"].vdxfid].bootstrap_template);
+        }
+        /*
         $(".vrsc-system-identity-profile-settings").css(
             {
                 "color": vrsc_profile[vdxfids["vrsc::system.identity.profile.settings"].vdxfid].fontcolor,
                 "background-color": vrsc_profile[vdxfids["vrsc::system.identity.profile.settings"].vdxfid].backgroundcolor
             }
         );
+        */
     }
     if (vrsc_profile[vdxfids["vrsc::system.identity.profile.background"].vdxfid] !== undefined) {
         $(".vrsc-system-identity-profile-background").css(
@@ -287,6 +296,10 @@ function updateUiOnProfileReceived()
     if (vrsc_profile[vdxfids["vrsc::system.services.accounts.facebook"].vdxfid] !== undefined) {
         let o = vrsc_profile[vdxfids["vrsc::system.services.accounts.facebook"].vdxfid];
         $(".vrsc-system-services-accounts-facebook").html(render_profile_facebook(o));
+    }
+    if (vrsc_profile[vdxfids["vrsc::system.services.accounts.github"].vdxfid] !== undefined) {
+        let o = vrsc_profile[vdxfids["vrsc::system.services.accounts.github"].vdxfid];
+        $(".vrsc-system-services-accounts-github").html(render_profile_github(o));
     }
     if (vrsc_profile[vdxfids["vrsc::system.services.accounts.twitter"].vdxfid] !== undefined) {
         let o = vrsc_profile[vdxfids["vrsc::system.services.accounts.twitter"].vdxfid];
@@ -391,39 +404,69 @@ function renderCollectionContent(a) {
 
 function buildCollapsableProofBadge(uid, btnHtml, hiddenHtml) {
     let html = '\
-    <button id="'+uid+'button" class="btn btn-light p-1 m-1" type="button" data-bs-toggle="collapse" data-bs-target="#'+uid+'" aria-expanded="false" aria-controls="'+uid+'">\
+    <button id="'+uid+'button" class="btn btn-light m-1" type="button" data-bs-toggle="collapse" data-bs-target="#'+uid+'" aria-expanded="false" aria-controls="'+uid+'">\
         '+btnHtml+' <span id="'+uid+'spinner" style="color:darkkhaki;"><i class="fas fa-unlock-alt"></i> <i class="fas fa-cog fa-spin"></i></span>\
     </button>\
-    <div class="card collapse multi-collapse p-1 m-0 text-left" id="'+uid+'">'+hiddenHtml+'</div>';
+    <div class="card collapse multi-collapse text-left m-1 p-2" style="max-width: 30rem;" id="'+uid+'">'+hiddenHtml+'</div>';
     return html;
 }
 
+function domain_from_url(url) {
+    let result;
+    let match;
+    if (match = url.match(/^(?:https?:\/\/)?(?:[^@\n]+@)?(?:www\.)?([^:\/\n\?\=]+)/im)) {
+        result = match[1];
+        if (match = result.match(/^[^\.]+\.(.+\..+)$/)) {
+            result = match[1];
+        }
+    }
+    return result.toLowerCase();
+}
+
+function check_domain(valid, domain) {
+    if (domain != valid) {
+        return 'Untrusted domain in proof. Expected '+valid+' got '+domain+' ';
+    }
+    return true;
+}
+
 function render_profile_discord(o) {
-    // TODO, discord api proxy may be required ...
+    // TODO, discord api proxy ??? ...
     return '';
 }
 
 function render_profile_twitter(o) {
-    // TODO, twitter api proxy required ...
+    // TODO, twitter api proxy ??? ...
     return '';
 }
 
 function render_profile_facebook(o) {
+    // TODO, facebook api proxy ??? ...
+    return '';
+}
+
+function render_profile_github(o) {
     let url = o[vdxfids["vrsc::system.proofs.controller"].vdxfid];
+    let domain = domain_from_url(url);
     if (!isEmpty(url)) {
-        let uid = 'u'+CryptoJS.MD5("render_system_services_facebook"+url);
+        let uid = 'u'+CryptoJS.MD5("render_system_services_github"+url);
         let title = url;
         if (!isEmpty(o.accountid)) { title = o.accountid; }
         if (!isEmpty(o.accountname)) { title = o.accountname; }
+        let domainCheck = check_domain('github.com', domain);
         // request node.js to download html from url, and scan it for the proof message, verify-it, and respond back with true or false
-        verifywebsite(vrsc_id.identity.name+'@', url, function(verified) {
-            let appendHtml = '<p>';
-            if (verified) {
-                appendHtml += 'Signature 1: '+htmlVerified+'<br />';
-            } else {
-                appendHtml += 'Signature 1: '+htmlNotVerified+'<br />';
+        verifywebsite(vrsc_id.identity.name+'@', (domainCheck===true?url:undefined), function(verified) {
+            let appendHtml = '<p><i class="fas fa-key"></i> Signature:';  
+            if (domainCheck !== true) {
+                verified = false;
+                appendHtml += domainCheck;
             }
-            appendHtml += '</p>'
+            if (verified) {
+                appendHtml += htmlVerified+'<br />';
+            } else {
+                appendHtml += htmlNotVerified+'<br />';
+            }
+            appendHtml += '</p>';
             
             // udpate spinner
             if (verified) {
@@ -436,8 +479,8 @@ function render_profile_facebook(o) {
         });
         return buildCollapsableProofBadge(
             uid,
-            '<i class="fab fa-facebook-square"></i> '+title,
-            '<a href="'+url+'" target="_blank">Visit on Facebook</a>'
+            '<i class="fab fa-github-square"></i> '+title+' ('+domain+')',
+            '<a href="'+url+'" target="_blank"><i class="fas fa-link"></i> View Proof on GitHub</a>'
         );
     }
     return '';
@@ -445,20 +488,26 @@ function render_profile_facebook(o) {
 
 function render_profile_linkedin(o) {
     let url = o[vdxfids["vrsc::system.proofs.controller"].vdxfid];
+    let domain = domain_from_url(url);
     if (!isEmpty(url)) {
         let uid = 'u'+CryptoJS.MD5("render_system_services_linkedin"+url);
         let title = url;
         if (!isEmpty(o.accountid)) { title = o.accountid; }
         if (!isEmpty(o.accountname)) { title = o.accountname; }
+        let domainCheck = check_domain('linkedin.com', domain);
         // request node.js to download html from url, and scan it for the proof message, verify-it, and respond back with true or false
-        verifywebsite(vrsc_id.identity.name+'@', url, function(verified) {
-            let appendHtml = '<p>';
-            if (verified) {
-                appendHtml += 'Signature 1: '+htmlVerified+'<br />';
-            } else {
-                appendHtml += 'Signature 1: '+htmlNotVerified+'<br />';
+        verifywebsite(vrsc_id.identity.name+'@', (domainCheck===true?url:undefined), function(verified) {
+            let appendHtml = '<p><i class="fas fa-key"></i> Signature:';
+            if (domainCheck !== true) {
+                verified = false;
+                appendHtml += domainCheck;
             }
-            appendHtml += '</p>'
+            if (verified) {
+                appendHtml += htmlVerified+'<br />';
+            } else {
+                appendHtml += htmlNotVerified+'<br />';
+            }
+            appendHtml += '</p>';
             
             // udpate spinner
             if (verified) {
@@ -471,8 +520,8 @@ function render_profile_linkedin(o) {
         });
         return buildCollapsableProofBadge(
             uid,
-            '<i class="fab fa-linkedin"></i> '+title,
-            '<a href="'+url+'" target="_blank">Visit on LinkedIn</a>'
+            '<i class="fab fa-linkedin"></i> '+title+' ('+domain+')',
+            '<a href="'+url+'" target="_blank"><i class="fas fa-link"></i> View Proof on LinkedIn</a>'
         );
     }
     return '';
@@ -480,20 +529,26 @@ function render_profile_linkedin(o) {
 
 function render_profile_reddit(o) {
     let url = o[vdxfids["vrsc::system.proofs.controller"].vdxfid];
+    let domain = domain_from_url(url);
     if (!isEmpty(url)) {
         let uid = 'u'+CryptoJS.MD5("render_system_services_reddit"+url);
         let title = url;
         if (!isEmpty(o.accountid)) { title = o.accountid; }
         if (!isEmpty(o.accountname)) { title = o.accountname; }
+        let domainCheck = check_domain('reddit.com', domain);
         // request node.js to download html from url, and scan it for the proof message, verify-it, and respond back with true or false
-        verifyreddit(vrsc_id.identity.name+'@', url, function(verified) {
-            let appendHtml = '<p>';
-            if (verified) {
-                appendHtml += 'Signature 1: '+htmlVerified+'<br />';
-            } else {
-                appendHtml += 'Signature 1: '+htmlNotVerified+'<br />';
+        verifywebsite(vrsc_id.identity.name+'@', (domainCheck===true?url:undefined), function(verified) {
+            let appendHtml = '<p><i class="fas fa-key"></i> Signature:';
+            if (domainCheck !== true) {
+                verified = false;
+                appendHtml += domainCheck;
             }
-            appendHtml += '</p>'
+            if (verified) {
+                appendHtml += htmlVerified+'<br />';
+            } else {
+                appendHtml += htmlNotVerified+'<br />';
+            }
+            appendHtml += '</p>';
             
             // udpate spinner
             if (verified) {
@@ -506,8 +561,8 @@ function render_profile_reddit(o) {
         });
         return buildCollapsableProofBadge(
             uid,
-            '<i class="fab fa-reddit-square"></i> '+title,
-            '<a href="'+url+'" target="_blank">Goto Reddit Comment</a>'
+            '<i class="fab fa-reddit-square"></i> '+title+' ('+domain+')',
+            '<a href="'+url+'" target="_blank"><i class="fas fa-link"></i> View Proof on Reddit</a>'
         );
     }
     return '';
@@ -515,19 +570,20 @@ function render_profile_reddit(o) {
 
 function render_profile_website(o) {
     let url = o[vdxfids["vrsc::system.proofs.controller"].vdxfid];
+    let domain = domain_from_url(url);
     if (!isEmpty(url)) {
         let uid = 'u'+CryptoJS.MD5("render_system_services_website"+url);
         let title = url;
         if (!isEmpty(o.name)) { title = o.name; }
         // request node.js to download html from url, and scan it for the proof message, verify-it, and respond back with true or false
         verifywebsite(vrsc_id.identity.name+'@', url, function(verified) {
-            let appendHtml = '<p>';
+            let appendHtml = '<p><i class="fas fa-key"></i> Signature:';
             if (verified) {
-                appendHtml += 'Signature 1: '+htmlVerified+'<br />';
+                appendHtml += htmlVerified+'<br />';
             } else {
-                appendHtml += 'Signature 1: '+htmlNotVerified+'<br />';
+                appendHtml += htmlNotVerified+'<br />';
             }
-            appendHtml += '</p>'
+            appendHtml += '</p>';
             
             // udpate spinner
             if (verified) {
@@ -540,8 +596,8 @@ function render_profile_website(o) {
         });
         return buildCollapsableProofBadge(
             uid,
-            '<i class="fas fa-globe"></i> '+title,
-            '<a href="'+url+'" target="_blank">Goto Website</a>'
+            '<i class="fas fa-globe"></i> '+title+' ('+domain+')',
+            '<a href="'+url+'" target="_blank"><i class="fas fa-link"></i> Goto Website</a>'
         );
     }
     return '';
@@ -555,17 +611,18 @@ function render_keys_vrsc_address(obj, a) {
             let proof = parseVerusProofMsg(proofmsg);
             // ask verus daemon to verify the messages and signatures
             verifymessage(vrsc_id.identity.name+'@', proof.signature1, proof.message, function(verified) {
-                let appendHtml = '<p>';
+                let appendHtml = '<p><i class="fas fa-key"></i> Signature 1:';
                 if (verified) {
-                    appendHtml += 'Signature 1: '+htmlVerified+'<br />';
+                    appendHtml += htmlVerified+'<br />';
                 } else {
-                    appendHtml += 'Signature 1: '+htmlNotVerified+'<br />';
+                    appendHtml += htmlNotVerified+'<br />';
                 }
                 verifymessage(a.address, proof.signature2, proof.message+':'+proof.signature1, function(verified2) {
+                    appendHtml += '<i class="fas fa-key"></i> Signature 2:';
                     if (verified2) {
-                        appendHtml += 'Signature 2: '+htmlVerified+'<br />';
+                        appendHtml += htmlVerified+'<br />';
                     } else {
-                        appendHtml += 'Signature 2: '+htmlNotVerified+'<br />';
+                        appendHtml += htmlVerified+'<br />';
                     }
                     // udpate spinner
                     if (verified && verified2) {
@@ -580,7 +637,7 @@ function render_keys_vrsc_address(obj, a) {
             return buildCollapsableProofBadge(
                 uid,
                 '<img src="'+relativePath+'vrsc.ico" alt="vrsc"/> '+a.address,
-                '<a href="https://explorer.verus.io/address/'+a.address+'" target="_blank">View Address on Verus Explorer</a>'
+                '<a href="https://explorer.verus.io/address/'+a.address+'" target="_blank"><i class="fas fa-link"></i> View Address on Verus Explorer</a>'
             );
         }
         return '<span class="badge bg-secondary large"><img src="vrsc.ico" alt="vrsc"/> '+a.address+'</span>';
@@ -596,17 +653,18 @@ function render_keys_vrsc_identity(obj, a) {
             let proof = parseVerusProofMsg(proofmsg);
             // ask verus daemon to verify the messages and signatures
             verifymessage(vrsc_id.identity.name+'@', proof.signature1, proof.message, function(verified) {
-                let appendHtml = '<p>';
+                let appendHtml = '<p><i class="fas fa-key"></i> Signature 1:';
                 if (verified) {
-                    appendHtml += 'Signature 1: '+htmlVerified+'<br />';
+                    appendHtml += htmlVerified+'<br />';
                 } else {
-                    appendHtml += 'Signature 1: '+htmlNotVerified+'<br />';
+                    appendHtml += htmlNotVerified+'<br />';
                 }
                 verifymessage(a.address, proof.signature2, proof.message+':'+proof.signature1, function(verified2) {
+                    appendHtml += '<i class="fas fa-key"></i> Signature 2:';
                     if (verified2) {
-                        appendHtml += 'Signature 2: '+htmlVerified+'<br />';
+                        appendHtml += htmlVerified+'<br />';
                     } else {
-                        appendHtml += 'Signature 2: '+htmlNotVerified+'<br />';
+                        appendHtml += htmlVerified+'<br />';
                     }
                     // udpate spinner
                     if (verified && verified2) {
@@ -621,7 +679,7 @@ function render_keys_vrsc_identity(obj, a) {
             return buildCollapsableProofBadge(
                 uid,
                 '<img src="'+relativePath+'vrsc.ico" alt="vrsc"/> '+a.address,
-                '<a href="'+a.address+'" target="_blank">View VerusID Profile</a>'
+                '<a href="'+a.address+'" target="_blank"><i class="fas fa-link"></i> View VerusID</a>'
             );
         }
         return '<span class="badge bg-secondary large"><img src="vrsc.ico" alt="vrsc"/> '+a.address+'</span>';
@@ -637,17 +695,17 @@ function render_keys_eth_address(obj, a) {
             let proof = parseVerusProofMsg(proofmsg);
             // ask verus daemon to verify a message
             verifymessage(vrsc_id.identity.name+'@', proof.signature1, proof.message, function(verified) {
-                let appendHtml = '<p>';
+                let appendHtml = '<p><i class="fas fa-key"></i> Signature 1:';
                 if (verified) {
-                    appendHtml += 'Signature 1: '+htmlVerified+'<br />';
+                    appendHtml += htmlVerified+'<br />';
                 } else {
-                    appendHtml += 'Signature 1: '+htmlNotVerified+'<br />';
+                    appendHtml += htmlNotVerified+'<br />';
                 }
                 // partially verified
                 if (verified) {
                     // TODO, verify second signature
                     verified = false;
-                    appendHtml += 'Signature 2: '+htmlNotVerified+' (unable to check, todo)<br />';
+                    appendHtml += '<i class="fas fa-key"></i> Signature 2: '+htmlNotVerified+' (unable to check, todo)<br />';
                 }                
                 appendHtml += '</p>'
                 
@@ -663,7 +721,7 @@ function render_keys_eth_address(obj, a) {
             return buildCollapsableProofBadge(
                 uid,
                 '<i class="fab fa-ethereum fa-lg"></i> '+a.address,
-                '<a href="https://etherscan.io/address/'+a.address+'" target="_blank">View Address on Ethereum Explorer</a>'
+                '<a href="https://etherscan.io/address/'+a.address+'" target="_blank"><i class="fas fa-link"></i> View Address on Ethereum Explorer</a>'
             );
         }
     }
@@ -678,17 +736,17 @@ function render_keys_btc_address(obj, a) {
             let proof = parseVerusProofMsg(proofmsg);
             // ask verus daemon to verify a message
             verifymessage(vrsc_id.identity.name+'@', proof.signature1, proof.message, function(verified) {
-                let appendHtml = '<p>';
+                let appendHtml = '<p><i class="fas fa-key"></i> Signature 1:';
                 if (verified) {
-                    appendHtml += 'Signature 1: '+htmlVerified+'<br />';
+                    appendHtml += htmlVerified+'<br />';
                 } else {
-                    appendHtml += 'Signature 1: '+htmlNotVerified+'<br />';
+                    appendHtml += htmlNotVerified+'<br />';
                 }
                 // partially verified
                 if (verified) {
                     // TODO, verify second signature
                     verified = false;
-                    appendHtml += 'Signature 2: '+htmlNotVerified+' (unable to check, todo)<br />';
+                    appendHtml += '<i class="fas fa-key"></i> Signature 2: '+htmlNotVerified+' (unable to check, todo)<br />';
                 }                
                 appendHtml += '</p>'
                 
@@ -704,7 +762,7 @@ function render_keys_btc_address(obj, a) {
             return buildCollapsableProofBadge(
                 uid,
                 '<i class="fab fa-bitcoin fa-lg"></i> '+a.address,
-                '<a href="https://blockstream.info/address/'+a.address+'" target="_blank">View Address on Bitcoin Explorer</a>'
+                '<a href="https://blockstream.info/address/'+a.address+'" target="_blank"><i class="fas fa-link"></i> View Address on Bitcoin Explorer</a>'
             );
         }
     }
@@ -789,49 +847,32 @@ function verifymessage(address, signature, message, answer) {
         }
     });
 }
-function verifyreddit(address, url, answer) {
-    let data = {
-        "address": address,
-        "website": url,
-    }
-    $.ajax({
-        url: relativePath+'api/verifyreddit',
-        type: 'post',
-        data: JSON.stringify(data),
-        headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-        },
-        dataType: 'json',
-        success: function (rsp) {
-            answer(rsp.response === true);
-        },
-        error: function (request, http, error) {
-            answer(false);
-        }
-    });
-}
+
 function verifywebsite(address, url, answer) {
-    let data = {
-        "address": address,
-        "website": url,
-    }
-    $.ajax({
-        url: relativePath+'api/verifywebsite',
-        type: 'post',
-        data: JSON.stringify(data),
-        headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-        },
-        dataType: 'json',
-        success: function (rsp) {
-            answer(rsp.response === true);
-        },
-        error: function (request, http, error) {
-            answer(false);
+    if (url && url.length > 0) {
+        let data = {
+            "address": address,
+            "website": url,
         }
-    });
+        $.ajax({
+            url: relativePath+'api/verifywebsite',
+            type: 'post',
+            data: JSON.stringify(data),
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            dataType: 'json',
+            success: function (rsp) {
+                answer(rsp.response === true);
+            },
+            error: function (request, http, error) {
+                answer(false);
+            }
+        });
+    } else {
+        setTimeout(()=>{ answer(false); }, 500);
+    }
 }
 
 
@@ -854,6 +895,6 @@ $( document ).ready(function() {
         getIdentityProfile(idlookup);
 
     }).fail(function(){
-        onProfileJsonError("Can not load file vdxfids.json ...");
+        onProfileJsonError("Failed to load vdxfids.json ...");
     });
 });
