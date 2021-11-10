@@ -41,24 +41,6 @@ function reverseHex(hex) {
     return hex.match(/../g).reverse().join('');
 }
 
-// note: implementation from crypto-js
-// Convert a hex string to a byte array
-function hexToBytes(hex) {
-    for (var bytes = [], c = 0; c < hex.length; c += 2)
-    bytes.push(parseInt(hex.substr(c, 2), 16));
-    return bytes.join("");
-}
-
-// Convert a byte array to a hex string
-function bytesToHex(bytes) {
-    for (var hex = [], i = 0; i < bytes.length; i++) {
-        var current = bytes[i] < 0 ? bytes[i] + 256 : bytes[i];
-        hex.push((current >>> 4).toString(16));
-        hex.push((current & 0xF).toString(16));
-    }
-    return hex.join("");
-}
-
 function isBase64url(str) {
     if (isEmpty(str)) return false;
     let r = base64urlregex.test(str);
@@ -67,22 +49,10 @@ function isBase64url(str) {
 }
 
 function hexBase64urlEncode(hex) {
-    return btoa(hex.match(/\w{2}/g).map(function(a) {
-        return String.fromCharCode(parseInt(a, 16));
-    }).join("")).replace('+', '-').replace('/', '_').replace(/=+$/, '');
-}
-String.prototype.padRight = function(n, pad){
-    t = this;
-    if(n > this.length)
-        for(i = 0; i < n-this.length; i++)
-            t += pad;
-    return t;
-}
-function hexBase64urlDecode(hex) {
-    let data = hex.match(/\w{2}/g).map(function(a) {
-        return String.fromCharCode(parseInt(a, 16));
-    }).join("").replace(/-/g, '+').replace(/_/g, '/');
-    return atob(data.padRight(data.length + (4 - data.length % 4) % 4, '='));
+    const hexDecoded = CryptoJS.enc.Hex.parse(hex);
+    const base64 = CryptoJS.enc.Base64.stringify(hexDecoded);
+    const base64url = base64.replace(/\+/g, '-').replace(/\//g, '_').replace(/=+/g,'');
+    return base64url;
 }
 
 function parseVerusProofMsg(proofmsg) {
@@ -706,7 +676,14 @@ function render_keys_eth_address(obj, a) {
                 } else {
                     appendHtml += htmlNotVerified+'<br />';
                 }
-                let signer = web3.eth.accounts.recover((proof.message+':'+proof.signature1), proof.signature2);
+                let signer = undefined;
+                if (web3) {
+                    try {
+                        signer = web3.eth.accounts.recover((proof.message+':'+proof.signature1), proof.signature2);
+                    } catch {
+                        signer = undefined;
+                    }
+                }
                 let verified2 = (signer == a.address);
                 appendHtml += '<i class="fas fa-key"></i> Signature 2:';
                 if (verified2) {
@@ -750,7 +727,11 @@ function render_keys_btc_address(obj, a) {
                 }
                 let verified2 = false;
                 if (bitcoinjs) {
-                    verified2 = bitcoinjs.message.verify((proof.message+':'+proof.signature1), a.address, proof.signature2, null, true);
+                    try {
+                        verified2 = bitcoinjs.message.verify((proof.message+':'+proof.signature1), a.address, proof.signature2, null, true);
+                    } catch {
+                        verified2 = false;
+                    }
                     appendHtml += '<i class="fas fa-key"></i> Signature 2:';
                     if (verified2) {
                         appendHtml += htmlVerified+'<br />';
